@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/05 01:10:20 by magostin         ###   ########.fr       */
+/*   Updated: 2021/03/06 04:43:56 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,25 @@ int	node(char *line)
 	return (-1);
 }
 
+void	checker(int *a, int s_a, int correct_size)
+{
+	int			i;
+
+	if (s_a == correct_size)
+	{
+		i = -1;
+		while (++i < s_a - 1)
+			if (a[i] < a[i + 1])
+			{
+				printf("KO\n");
+				return ;
+			}
+		printf("OK\n");
+		return ;
+	}
+	printf("KO\n");
+}
+
 int main(int ac, char **av)
 {
 	int		*a;
@@ -101,17 +120,17 @@ int main(int ac, char **av)
 	load_stack_int(b, s_a, -42);
 	char	*line;
 	int		ret;
+	print_stacks(a, b, s_a, s_b);
 	ret = 1;
 	while (ret == 1)
 	{
-		print_stacks(a, b, s_a, s_b);
 		ret = get_next_line(1, &line);
 		red_r = node(line);
 		free(line);
-		if (red_r == -1)
-			break ;
-		redirect[red_r](a, b, &s_a, &s_b);
+		if (red_r != -1)
+			redirect[red_r](a, b, &s_a, &s_b);
 	}
+	checker(a, s_a, ac - 1);
 	free(a);
 	free(b);
 	return (1);
