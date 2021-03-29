@@ -15,12 +15,10 @@ ETAPE 7: Maintenant que A est vide, il faut trouver le plus gros nombre de B et 
 (on peux utiliser la même logique que l'étape 3 pour limiter le nombre de mouvements)
 
 La Stack A devrait être trié!
-[0;4] [5;9] [10;14]
-5 11 12 10 7 8 6 9 13 14
-5 4 3 2 1 0 7
-
-1 2 5
-4 7
 
 
-1 0 3 2
+[0;2] [3;5]
+---------->
+5 3 4 2 0
+1 
+---------->

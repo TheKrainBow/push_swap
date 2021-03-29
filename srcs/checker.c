@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/29 13:40:33 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:24:43 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ void	swap(int *a, int *b)
 }
 void	generate_random_stack(t_stack *a, int n)
 {
-	srand(5);
 	int		i;
 
+	srand(10);
 	a->stack = malloc(sizeof(int) * n);
 	a->size = n;
 	i = -1;
@@ -157,7 +157,7 @@ int main(int ac, char **av)
 	int	red_r;
 	int	save;
 
-	generate_random_stack(&a, 100);
+	generate_random_stack(&a, 8);
 	(void)ac;
 	(void)av;
 	//load_stack_arg(&a, av, ac);
@@ -180,7 +180,7 @@ int main(int ac, char **av)
 			redirect[red_r](&data);
 	}
 	if (!checker(&a, save, 1))
-		print_stacks(&a, &b);
+		print_stack(&a);
 	free(a.stack);
 	free(b.stack);
 	return (1);

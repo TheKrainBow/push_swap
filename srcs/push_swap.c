@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/29 13:44:20 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:37:53 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	sort_stack(t_stack *a)
 	}
 }
 
-t_chunk	*chunk_stack(t_stack *a, int n)
+t_chunk	*chunk_stack(t_stack *a, int n, int print)
 {
 	int			i;
 	t_chunk		*dest;
@@ -152,10 +152,11 @@ t_chunk	*chunk_stack(t_stack *a, int n)
 	}
 	dest[0].min = a->stack[a->size - 1];
 	dest[n - 1].max = a->stack[0];
-	/*i = -1;
-	while (++i < n)
+	i = -1;
+	while (print && ++i < n)
 		printf("[%d;%d]", dest[i].min, dest[i].max);
-	printf("\n");*/
+	if (print)
+		printf("\n");
 	return (dest);
 }
 
@@ -194,12 +195,12 @@ void		exec_moves(t_data *data)
 			ma->move(data);
 		ma->n--;
 	}
-	while (mb->n > 0)
+	/*while (mb->n > 0)
 	{
 		if (data->b->size > 1)
 			mb->move(data);
 		mb->n--;
-	}
+	}*/
 }
 int		find_b_max(t_data *data)
 {
@@ -287,6 +288,8 @@ void	best_move_for_a(t_data *data, int n)
 	{
 		data->ma->n = 0;
 		data->ma->value = data->a->stack[0];
+		data->first = 0;
+		return ;
 	}
 	data->first = -1;
 	i = data->a->size;
@@ -334,19 +337,25 @@ void		sort_chunked_stack(t_data *data, int n)
 	i = -1;
 	while (++i < n)
 	{
+		printf("{%d} ", i);
 		data->first = 1;
 		while (data->first != -1)
 		{
 			best_move_for_a(data, i);
+			if (data->first == -1)
+			{
+				printf("\n");
+				break ;
+			}
+			printf("%d ", data->ma->value);
 			best_move_for_b(data);
 			exec_moves(data);
 			pb(data);
 			//if (top_stack(data->b) < data->b->stack[data->b->size - 2] && data->b->size >= 2)
 			//	rb(data);
-			if (data->first == -1)
-				break ;
 		}
 	}
+	print_stack(data->b);
 	push_back_to_a(data);
 	free(data->b->stack);
 }
@@ -359,7 +368,8 @@ int		*push_swap(t_data *data)
 	data->sorted_a->stack = copy(data->a);
 	sort_stack(data->sorted_a);
 	i = 2;
-	data->chunked_a = chunk_stack(data->sorted_a, i);
+	data->chunked_a = chunk_stack(data->sorted_a, i, 1);
+	print_stack(data->a);
 	sort_chunked_stack(data, i);
 	free(data->chunked_a);
 	free(data->sorted_a->stack);
@@ -430,9 +440,8 @@ int main(int ac, char **av)
 	data.ma = &ma;
 	data.mb = &mb;
 	data.sorted_a = &sorted_a;
-	data.print = 1;
-	generate_random_stack(data.a, 10);
-	print_stack(&a);
+	data.print = 0;
+	generate_random_stack(data.a, 8);
 	//load_stack_arg(data.a, av, ac);
 	if (!checker(&a, a.size, 0))
 		push_swap(&data);
