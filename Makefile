@@ -48,6 +48,7 @@ fclean:				clean
 					@make -s -C libft -f Makefile fclean
 					@echo "\033[0;33mRemoving \033[1;31mPush_swap\033[0;33m.\033[0m"
 					$(RM) $(NAME)
+					$(RM) checker
 
 start_message:
 					@echo "\033[0;33mMaking \033[1;31mPush_swap\033[0;33m\t\033[1;30m[\033[1;31mX\033[1;30m]\033[0m"

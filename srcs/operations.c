@@ -3,131 +3,147 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   d->by: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 23:48:20 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/05 01:10:52 by magostin         ###   ########.fr       */
+/*   Created: 2021/03/04 23:48:20 d->by magostin          #+#    #+#             */
+/*   Updated: 2021/03/28 16:28:43 d->by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void		sa(int *a, int *b, int *s_a, int *s_b)
+void		sa(t_data *d)
 {
 	int		temp;
 
-	(void)b;
-	(void)s_b;
-	if (*s_a <= 1)
+	(void)d->b;
+	(void)d->b->size;
+	if (d->a->size <= 1)
 		return ;
-	temp = a[*s_a - 1];
-	a[*s_a - 1] = a[*s_a - 2];
-	a[*s_a - 2] = temp;
+	temp = d->a->stack[d->a->size - 1];
+	d->a->stack[d->a->size - 1] = d->a->stack[d->a->size - 2];
+	d->a->stack[d->a->size - 2] = temp;
+	if (d->print)
+		printf("sa\n");
 }
 
-void		sb(int *a, int *b, int *s_a, int *s_b)
+void		sb(t_data *d)
 {
 	int		temp;
 
-	(void)a;
-	(void)s_a;
-	if (*s_b <= 1)
+	if (d->b->size <= 1)
 		return ;
-	temp = b[*s_b - 1];
-	b[*s_b - 1] = b[*s_b - 2];
-	b[*s_b - 2] = temp;
+	temp = d->b->stack[d->b->size - 1];
+	d->b->stack[d->b->size - 1] = d->b->stack[d->b->size - 2];
+	d->b->stack[d->b->size - 2] = temp;
+	if (d->print)
+		printf("sb\n");
 }
 
-void		ss(int *a, int *b, int *s_a, int *s_b)
+void		ss(t_data *d)
 {
-	if (*s_a > 1)
-		sa(a, b, s_a, s_b);
-	if (*s_b > 1)
-		sb(a, b, s_a, s_b);
+	if (d->a->size > 1)
+		sa(d);
+	if (d->b->size > 1)
+		sb(d);
+	if (d->print)
+		printf("ss\n");
 }
 
-void		pa(int *a, int *b, int *s_a, int *s_b)
+void		pa(t_data *d)
 {
-	if (*s_b == 0)
+	if (d->b->size == 0)
 		return ;
-	(*s_b)--;
-	a[*s_a] = b[*s_b];
-	(*s_a)++;
+	(d->b->size)--;
+	d->a->stack[d->a->size] = d->b->stack[d->b->size];
+	(d->a->size)++;
+	if (d->print)
+		printf("pa\n");
 }
 
-void		pb(int *a, int *b, int *s_a, int *s_b)
+void		pb(t_data *d)
 {
-	if (*s_a == 0)
+	if (d->a->size == 0)
 		return ;
-	(*s_a)--;
-	b[*s_b] = a[*s_a];
-	(*s_b)++;
+	(d->a->size)--;
+	d->b->stack[d->b->size] = d->a->stack[d->a->size];
+	(d->b->size)++;
+	if (d->print)
+		printf("pb\n");
 }
 
-void		ra(int *a, int *b, int *s_a, int *s_b)
+//first become last
+void		ra(t_data *d)
 {
 	int			temp;
 	int			i;
 
-	(void)b;
-	(void)s_b;
-	temp = a[*s_a - 1];
-	i = *s_a;
+	temp = d->a->stack[d->a->size - 1];
+	i = d->a->size;
 	while (--i > 0)
-		a[i] = a[i - 1];
-	a[i] = temp;
+		d->a->stack[i] = d->a->stack[i - 1];
+	d->a->stack[i] = temp;
+	if (d->print)
+		printf("ra\n");
 }
 
-void		rb(int *a, int *b, int *s_a, int *s_b)
+//first become last
+void		rb(t_data *d)
 {
 	int			temp;
 	int			i;
 
-	(void)a;
-	(void)s_a;
-	temp = b[*s_b - 1];
-	i = *s_b;
+	temp = d->b->stack[d->b->size - 1];
+	i = d->b->size;
 	while (--i > 0)
-		b[i] = b[i - 1];
-	b[i] = temp;
+		d->b->stack[i] = d->b->stack[i - 1];
+	d->b->stack[i] = temp;
+	if (d->print)
+		printf("rb\n");
 }
 
-void		rr(int *a, int *b, int *s_a, int *s_b)
+void		rr(t_data *d)
 {
-	ra(a, b, s_a, s_b);
-	rb(a, b, s_a, s_b);
+	ra(d);
+	rb(d);
+	if (d->print)
+		printf("rr\n");
 }
 
-void		rra(int *a, int *b, int *s_a, int *s_b)
-{
-	int			temp;
-	int			i;
-
-	(void)b;
-	(void)s_b;
-	temp = a[0];
-	i = -1;
-	while (++i < *s_a - 1)
-		a[i] = a[i + 1];
-	a[i] = temp;
-}
-
-void		rrb(int *a, int *b, int *s_a, int *s_b)
+//last become first
+void		rra(t_data *d)
 {
 	int			temp;
 	int			i;
 
-	(void)a;
-	(void)s_a;
-	temp = b[0];
+	temp = d->a->stack[0];
 	i = -1;
-	while (++i < *s_b - 1)
-		b[i] = b[i + 1];
-	b[i] = temp;
+	while (++i < d->a->size - 1)
+		d->a->stack[i] = d->a->stack[i + 1];
+	d->a->stack[i] = temp;
+	if (d->print)
+		printf("rra\n");
 }
 
-void		rrr(int *a, int *b, int *s_a, int *s_b)
+//last become first
+void		rrb(t_data *d)
 {
-	rra(a, b, s_a, s_b);
-	rrb(a, b, s_a, s_b);
+	int			temp;
+	int			i;
+
+	temp = d->b->stack[0];
+	i = -1;
+	while (++i < d->b->size - 1)
+		d->b->stack[i] = d->b->stack[i + 1];
+	d->b->stack[i] = temp;
+	if (d->print)
+		printf("rrb\n");
+}
+
+void		rrr(t_data *d)
+{
+	rra(d);
+	rrb(d);
+	if (d->print)
+		printf("rrr\n");
 }

@@ -1,55 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/06 04:43:56 by magostin         ###   ########.fr       */
+/*   Updated: 2021/03/28 16:45:22 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void		print_stacks(int *a, int *b, int s_a, int s_b)
+void		print_stacks(t_stack *a, t_stack *b)
 {
 	int		i;
 
-	(void)s_b;
-	(void)b;
-	i = ft_max(s_a, s_b);
+	i = ft_max(a->size, b->size);
 	printf("_____\n");
 	while (--i >= 0)
 	{
-		if (i < s_a)
-			printf("|%d ", a[i]);
+		if (i < a->size)
+			printf("|%d ", a->stack[i]);
 		else
 			printf("|  ");
-		if (i < s_b)
-			printf("%d|\n", b[i]);
+		if (i < b->size)
+			printf("%d|\n", b->stack[i]);
 		else
 			printf(" |\n");
 	}
 	printf("|a b|\n");
 }
 
-void		load_stack_arg(int *a, int s_a, char **av)
+void		load_stack_arg(t_stack *a, char **av)
 {
 	int		i;
 
 	i = -1;
-	while (++i < s_a)
-		a[s_a - i - 1] = ft_atoi(av[i + 1]);
+	while (a && ++i < a->size)
+		a->stack[a->size - i - 1] = ft_atoi(av[i + 1]);
 }
 
-void		load_stack_int(int *a, int s_a, int x)
+void		load_stack_int(t_stack *a, int x)
 {
 	int		i;
 
 	i = -1;
-	while (++i < s_a)
-		a[s_a - i - 1] = x;
+	while (a && ++i < a->size)
+		a->stack[a->size - i - 1] = x;
 }
 
 int	node(char *line)
@@ -79,15 +77,15 @@ int	node(char *line)
 	return (-1);
 }
 
-void	checker(int *a, int s_a, int correct_size)
+void	checker(t_stack *a, int correct_size)
 {
 	int			i;
 
-	if (s_a == correct_size)
+	if (a->size == correct_size)
 	{
 		i = -1;
-		while (++i < s_a - 1)
-			if (a[i] < a[i + 1])
+		while (++i < a->size - 1)
+			if (a->stack[i] < a->stack[i + 1])
 			{
 				printf("KO\n");
 				return ;
@@ -100,11 +98,10 @@ void	checker(int *a, int s_a, int correct_size)
 
 int main(int ac, char **av)
 {
-	int		*a;
-	int		*b;
-	int		s_a;
-	int		s_b;
-	static void		(*redirect[11])(int *, int *, int *, int *) =
+	t_stack		a;
+	t_stack		b;
+	t_data		data;
+	static void		(*redirect[11])(t_data *) =
 	{
 		sa, sb, ss,
 		pa, pb,
@@ -112,15 +109,17 @@ int main(int ac, char **av)
 	};
 	int red_r;
 
-	a = malloc(sizeof(int) * (2 * (ac - 1)));
-	s_a = ac - 1;
-	b = malloc(sizeof(int) * (2 * (ac - 1)));
-	s_b = 0;
-	load_stack_arg(a, s_a, av);
-	load_stack_int(b, s_a, -42);
+	a.stack = malloc(sizeof(int) * (ac - 1));
+	a.size = ac - 1;
+	b.stack = malloc(sizeof(int) * (ac - 1));
+	b.size = 0;
+	load_stack_arg(&a, av);
+	load_stack_int(&b, 0);
+	data.a = &a;
+	data.b = &b;
 	char	*line;
 	int		ret;
-	print_stacks(a, b, s_a, s_b);
+	print_stacks(&a, &b);
 	ret = 1;
 	while (ret == 1)
 	{
@@ -128,10 +127,10 @@ int main(int ac, char **av)
 		red_r = node(line);
 		free(line);
 		if (red_r != -1)
-			redirect[red_r](a, b, &s_a, &s_b);
+			redirect[red_r](&data);
 	}
-	checker(a, s_a, ac - 1);
-	free(a);
-	free(b);
+	checker(&a, ac - 1);
+	free(a.stack);
+	free(b.stack);
 	return (1);
 }
