@@ -22,7 +22,7 @@ FLAGS			=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096 -g
 $(NAME):			clear_screen start_message $(LIBFT) $(OBJS)
 					@if [ "$?" = "clear_screen start_message" ]; then echo -n "\033[2A\033[30C\033[0;33mAlready done\033[15D\033[1B\033[2A\033[2D\033[1;32m✓\033[1D\033[1B✓\033[26D\033[2B\033[0m";else echo -n "\033[2A\033[25C\033[1;32m✓\033[26D\033[2B\033[0m"; fi
 					@$(CC) $(OBJS) $(FLAGS) -o $(NAME) $(LD_FLAGS)
-					@$(CC) srcs/checker.c srcs/operations.c libft/strs/ft_strcmp.c libft/math/ft_atoi.c libft/math/ft_max.c libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c $(INCLUDES) -o checker
+					@$(CC) srcs/checker.c srcs/operations.c libft/strs/ft_split.c libft/mem/ft_free_tab.c libft/strs/ft_strcmp.c libft/math/ft_atoi.c libft/math/ft_max.c libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c $(INCLUDES) -o checker -fsanitize=address -g
 					@echo "\033[1A\033[25C\033[1;32m✓\033[3A\033[1D✓\033[3B\033[0m"
 
 $(LIBFT):

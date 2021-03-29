@@ -12,6 +12,17 @@
 
 #include "../includes/push_swap.h"
 
+
+void		print_stack(t_stack *a)
+{
+	int		i;
+
+	i = -1;
+	while (++i < a->size)
+		printf("%d ", a->stack[i]);
+	printf("\n");
+}
+
 void		sa(t_data *d)
 {
 	int		temp;
@@ -70,6 +81,8 @@ void		pb(t_data *d)
 	(d->b->size)++;
 	if (d->print)
 		printf("pb\n");
+	//print_stack(d->a);
+	//print_stack(d->b);
 }
 
 //first become last
@@ -100,6 +113,8 @@ void		rb(t_data *d)
 	d->b->stack[i] = temp;
 	if (d->print)
 		printf("rb\n");
+	//print_stack(d->a);
+	//print_stack(d->b);
 }
 
 void		rr(t_data *d)
@@ -138,6 +153,8 @@ void		rrb(t_data *d)
 	d->b->stack[i] = temp;
 	if (d->print)
 		printf("rrb\n");
+	//print_stack(d->a);
+	//print_stack(d->b);
 }
 
 void		rrr(t_data *d)

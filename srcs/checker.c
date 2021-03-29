@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/28 16:45:22 by magostin         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:40:33 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,34 @@ void		print_stacks(t_stack *a, t_stack *b)
 	}
 	printf("|a b|\n");
 }
-
-void		load_stack_arg(t_stack *a, char **av)
+void		load_stack_arg(t_stack *a, char **av, int ac)
 {
 	int		i;
+	int		j;
+	int		k;
+	char	**temp;
 
 	i = -1;
-	while (a && ++i < a->size)
-		a->stack[a->size - i - 1] = ft_atoi(av[i + 1]);
+	a->size = 0;
+	while (++i < ac)
+	{
+		temp = ft_split(av[i + 1], ' ');
+		j = -1;
+		while (temp && temp[++j])
+			a->size++;
+		ft_free_tab(temp);
+	}
+	a->stack = malloc(sizeof(int) * a->size);
+	i = -1;
+	k = -1;
+	while (++i < ac)
+	{
+		temp = ft_split(av[i + 1], ' ');
+		j = -1;
+		while (temp && temp[++j] && ++k > -1)
+			a->stack[a->size - k - 1] = ft_atoi(temp[j]);
+		ft_free_tab(temp);
+	}
 }
 
 void		load_stack_int(t_stack *a, int x)
@@ -77,7 +97,7 @@ int	node(char *line)
 	return (-1);
 }
 
-void	checker(t_stack *a, int correct_size)
+int		checker(t_stack *a, int correct_size, int print)
 {
 	int			i;
 
@@ -87,13 +107,40 @@ void	checker(t_stack *a, int correct_size)
 		while (++i < a->size - 1)
 			if (a->stack[i] < a->stack[i + 1])
 			{
-				printf("KO\n");
-				return ;
+				if (print)
+					printf("KO\n");
+				return (0);
 			}
-		printf("OK\n");
-		return ;
+		if (print)
+			printf("OK\n");
+		return (1);
 	}
-	printf("KO\n");
+	if (print)
+		printf("KO\n");
+	return (0);
+}
+
+void	swap(int *a, int *b)
+{
+	int	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+void	generate_random_stack(t_stack *a, int n)
+{
+	srand(5);
+	int		i;
+
+	a->stack = malloc(sizeof(int) * n);
+	a->size = n;
+	i = -1;
+	while (++i < n)
+		a->stack[i] = i;
+	i = -1;
+	while (++i < n)
+		swap(&a->stack[rand() % n], &a->stack[rand() % n]);
 }
 
 int main(int ac, char **av)
@@ -107,29 +154,33 @@ int main(int ac, char **av)
 		pa, pb,
 		ra, rb, rr, rra, rrb, rrr
 	};
-	int red_r;
+	int	red_r;
+	int	save;
 
-	a.stack = malloc(sizeof(int) * (ac - 1));
-	a.size = ac - 1;
-	b.stack = malloc(sizeof(int) * (ac - 1));
+	generate_random_stack(&a, 100);
+	(void)ac;
+	(void)av;
+	//load_stack_arg(&a, av, ac);
+	save = a.size;
+	b.stack = malloc(sizeof(int) * (a.size));
 	b.size = 0;
-	load_stack_arg(&a, av);
 	load_stack_int(&b, 0);
 	data.a = &a;
 	data.b = &b;
+	data.print = 0;
 	char	*line;
 	int		ret;
-	print_stacks(&a, &b);
 	ret = 1;
 	while (ret == 1)
 	{
-		ret = get_next_line(1, &line);
+		ret = get_next_line(0, &line);
 		red_r = node(line);
 		free(line);
 		if (red_r != -1)
 			redirect[red_r](&data);
 	}
-	checker(&a, ac - 1);
+	if (!checker(&a, save, 1))
+		print_stacks(&a, &b);
 	free(a.stack);
 	free(b.stack);
 	return (1);
