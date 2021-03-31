@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/29 11:36:26 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:43:15 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 typedef struct		s_stack
 {
 	int				*stack;
+	int				max;
+	int				min;
 	int				size;
 }					t_stack;
 
@@ -33,6 +35,8 @@ typedef struct		s_data
 	t_stack			*b;
 	struct s_move	*ma;
 	struct s_move	*mb;
+	struct s_move	*ra;
+	struct s_move	*rb;
 	t_stack			*sorted_a;
 	t_chunk			*chunked_a;
 	int				first;

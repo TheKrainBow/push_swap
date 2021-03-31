@@ -36,6 +36,7 @@ void		sa(t_data *d)
 	d->a->stack[d->a->size - 2] = temp;
 	if (d->print)
 		printf("sa\n");
+	d->n_ope++;
 }
 
 void		sb(t_data *d)
@@ -49,6 +50,7 @@ void		sb(t_data *d)
 	d->b->stack[d->b->size - 2] = temp;
 	if (d->print)
 		printf("sb\n");
+	d->n_ope++;
 }
 
 void		ss(t_data *d)
@@ -59,6 +61,7 @@ void		ss(t_data *d)
 		sb(d);
 	if (d->print)
 		printf("ss\n");
+	d->n_ope--;
 }
 
 void		pa(t_data *d)
@@ -68,8 +71,18 @@ void		pa(t_data *d)
 	(d->b->size)--;
 	d->a->stack[d->a->size] = d->b->stack[d->b->size];
 	(d->a->size)++;
+	if (d->a->size == 1)
+	{
+		d->a->max = d->b->stack[d->b->size];
+		d->a->min = d->b->stack[d->b->size];
+	}
+	if (d->b->stack[d->b->size] > d->a->max)
+		d->a->max = d->b->stack[d->b->size];
+	if (d->b->stack[d->b->size] < d->a->min)
+		d->a->min = d->b->stack[d->b->size];
 	if (d->print)
 		printf("pa\n");
+	d->n_ope++;
 }
 
 void		pb(t_data *d)
@@ -79,10 +92,18 @@ void		pb(t_data *d)
 	(d->a->size)--;
 	d->b->stack[d->b->size] = d->a->stack[d->a->size];
 	(d->b->size)++;
+	if (d->b->size == 1)
+	{
+		d->b->max = d->a->stack[d->a->size];
+		d->b->min = d->a->stack[d->a->size];
+	}
+	if (d->a->stack[d->a->size] > d->b->max)
+		d->b->max = d->b->stack[d->b->size - 1];
+	if (d->a->stack[d->a->size] < d->b->min)
+		d->b->min = d->b->stack[d->b->size - 1];
 	if (d->print)
 		printf("pb\n");
-	//print_stack(d->a);
-	//print_stack(d->b);
+	d->n_ope++;
 }
 
 //first become last
@@ -98,6 +119,7 @@ void		ra(t_data *d)
 	d->a->stack[i] = temp;
 	if (d->print)
 		printf("ra\n");
+	d->n_ope++;
 }
 
 //first become last
@@ -113,8 +135,7 @@ void		rb(t_data *d)
 	d->b->stack[i] = temp;
 	if (d->print)
 		printf("rb\n");
-	//print_stack(d->a);
-	//print_stack(d->b);
+	d->n_ope++;
 }
 
 void		rr(t_data *d)
@@ -123,6 +144,7 @@ void		rr(t_data *d)
 	rb(d);
 	if (d->print)
 		printf("rr\n");
+	d->n_ope--;
 }
 
 //last become first
@@ -138,6 +160,7 @@ void		rra(t_data *d)
 	d->a->stack[i] = temp;
 	if (d->print)
 		printf("rra\n");
+	d->n_ope++;
 }
 
 //last become first
@@ -153,8 +176,7 @@ void		rrb(t_data *d)
 	d->b->stack[i] = temp;
 	if (d->print)
 		printf("rrb\n");
-	//print_stack(d->a);
-	//print_stack(d->b);
+	d->n_ope++;
 }
 
 void		rrr(t_data *d)
@@ -163,4 +185,5 @@ void		rrr(t_data *d)
 	rrb(d);
 	if (d->print)
 		printf("rrr\n");
+	d->n_ope--;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/29 14:37:53 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/03/31 18:57:42 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,19 @@ int	node(char *line)
 	return (-1);
 }
 
-int			*copy(t_stack *a)
+t_stack			*copy(t_stack *a)
 {
-	int		*dest;
-	int		i;
+	t_stack		*dest;
+	int			i;
 
-	dest = malloc(sizeof(int) * (a->size));
+	dest = malloc(sizeof(t_stack));
+	dest->stack = malloc(sizeof(int) * (a->size));
 	i = -1;
 	while (++i < a->size)
-		dest[i] = a->stack[i];
+		dest->stack[i] = a->stack[i];
+	dest->max = a->max;
+	dest->min = a->min;
+	dest->size = a->size;
 	return (dest);
 }
 
@@ -167,7 +171,7 @@ int			top_stack(t_stack *a)
 
 int		is_between(int c, int a, int b)
 {
-	return ((c >= a && c <= b) /*|| (c >= b && c <= a)*/);
+	return (/*(c >= a && c <= b) ||*/ (c >= b && c <= a));
 }
 
 int		check_b_insert(t_data *data, int index)
@@ -177,73 +181,125 @@ int		check_b_insert(t_data *data, int index)
 	prev = index - 1;
 	if (index == 0)
 		prev = data->b->size - 1;
-	return (is_between(data->ma->value, data->b->stack[index], data->b->stack[prev]));
+	if (data->b->stack[index] > data->ma->value && data->b->stack[prev] < data->ma->value)
+	{
+		//printf("%d between [%d;%d]\n", data->ma->value, data->b->stack[prev], data->b->stack[index]);
+		return (1);
+	}
+	return (0);
 }
 
-void		exec_moves(t_data *data)
+void		revers_moves(t_data *data)
 {
-	t_move	*ma;
-	t_move	*mb;
+	if (data->ma->move == &ra)
+		data->ra->move = &rra;
+	else
+		data->ra->move = &ra;
+	if (data->mb->move == &rb)
+		data->rb->move = &rrb;
+	else
+		data->rb->move = &rb;
+	data->ra->n = data->a->size - data->ma->n;
+	data->rb->n = data->b->size - data->mb->n;
 
-	ma = data->ma;
-	mb = data->mb;
-	//printf("%d %s\n", ma->n, ma->move == &ra ? "ra" : "rra");
-	//printf("%d %s\n", mb->n, mb->move == &rb ? "rb" : "rrb");
+}
+
+int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
+{
+	while (ma->move == &ra && mb->move == &rb
+	&& (ma->n > 0) && (mb->n > 0) && (data->a->size > 1 && data->b->size > 1))
+	{
+		if (move)
+			rr(data);
+		ma->n--;
+		mb->n--;
+	}
+	while (ma->move == &rra && mb->move == &rrb
+	&& (ma->n > 0) && (mb->n > 0) && (data->a->size > 1 && data->b->size > 1))
+	{
+		if (move)
+			rrr(data);
+		ma->n--;
+		mb->n--;
+	}
 	while (ma->n > 0)
 	{
-		if (data->a->size > 1)
+		if (move && data->a->size > 1)
 			ma->move(data);
 		ma->n--;
 	}
-	/*while (mb->n > 0)
+	while (mb->n > 0)
 	{
-		if (data->b->size > 1)
+		if (move && data->b->size > 1)
 			mb->move(data);
 		mb->n--;
-	}*/
+	}
+	return (data->n_ope);
 }
-int		find_b_max(t_data *data)
+
+int			ind(int i, char a)
 {
+	if (a == 'a')
+		return (i >= 2);
+	return (i % 2);
+}
+
+t_move			*copy_move(t_move *a)
+{
+	t_move		*dest;
+
+	dest = malloc(sizeof(t_move));
+	dest->n = a->n;
+	dest->move = a->move;
+	dest->value = a->value;
+	return (dest);
+}
+void		generate_moves(t_data *data)
+{
+	t_move	*ma[2];
+	t_move	*mb[2];
+	int		moves[4];
+	int		n[2];
+	int		temp_ope;
 	int		i;
-	int		max;
-	int		i_max;
+	int		i_temp;
+	int		min;
 
-	i = -1;
-	i_max = -1;
-	max = data->b->stack[0];
-	while (++i < data->b->size)
-		if (data->b->stack[i] >= max)
-		{
-			i_max = i;
-			max = data->b->stack[i];
-		}
-	return (i_max);
-}
-
-void	push_back_to_a(t_data *data)
-{
-	int	i;
-	
-	i = find_b_max(data);
-	if (i != -1)
+	revers_moves(data);
+	temp_ope = data->n_ope;
+	ma[0] = copy_move(data->ma);
+	mb[0] = copy_move(data->mb);
+	ma[1] = copy_move(data->ra);
+	mb[1] = copy_move(data->rb);
+	n[0] = ma[ind(0, 'a')]->n;
+	n[1] = mb[ind(0, 'b')]->n;
+	min = exec_moves(data, ma[0], mb[0], 0);
+	ma[ind(0, 'a')]->n = n[0];
+	mb[ind(0, 'b')]->n = n[1];
+	i_temp = 0;
+	i = 0;
+	while (++i < 4)
 	{
-		if (i >= data->b->size / 2)
+		n[0] = ma[ind(i, 'a')]->n;
+		n[1] = mb[ind(i, 'b')]->n;
+		moves[i] = exec_moves(data, ma[ind(i, 'a')], mb[ind(i, 'b')], 0);
+		if (moves[i] < min)
 		{
-			data->mb->move = &rb;
-			data->mb->n = data->b->size - i;
+			i_temp = i;
+			min = moves[i];
 		}
-		else
-		{
-			data->mb->move = &rrb;
-			data->mb->n = i;
-		}
-		exec_moves(data);
+		ma[ind(i, 'a')]->n = n[0];
+		mb[ind(i, 'b')]->n = n[1];
+		data->n_ope = temp_ope;
 	}
-	while (data->b->size)
-	{
-		rrb(data);
-		pa(data);
-	}
+	i = i_temp;
+	exec_moves(data, ma[ind(i, 'a')], mb[ind(i, 'b')], 1);
+	free(ma[0]);
+	free(mb[0]);
+	free(ma[1]);
+	free(mb[1]);
+/*	printf("%d %s\n", ma->n, ma->move == &ra ? "ra" : "rra");
+	printf("%d %s\n", mb->n, mb->move == &rb ? "rb" : "rrb");*/
 }
 
 void	best_move_for_b(t_data *data)
@@ -258,26 +314,27 @@ void	best_move_for_b(t_data *data)
 	while (--i >= 0)
 		if (check_b_insert(data, i))
 			break ;
-	if (i == -1)
-	{
-		i = find_b_max(data);
-		maxed++;
-	}
 	if (i != -1)
 	{
-		if (i >= data->b->size / 2)
+		data->mb->move = rrb;
+		data->mb->n = i;
+		return ;
+	}
+	else
+//	if (data->ma->value < data->b->min || data->ma->value > data->b->max)
+	{
+		i = 0;
+		while (data->b->stack[i] != data->b->max)
+			i++;
+		if (i != data->b->size - 1)
 		{
-			data->mb->move = &rb;
-			data->mb->n = data->b->size - i;
+			data->mb->move = rrb;
+			data->mb->n = i + 1;
 		}
 		else
-		{
-			data->mb->move = &rrb;
-			data->mb->n = i;
-		}
+			data->mb->n = 0;
+	//	printf("%d fill: %d at the top\n", data->ma->value, data->b->max);
 	}
-	//if (maxed)
-	//	rrb(data);
 }
 
 void	best_move_for_a(t_data *data, int n)
@@ -293,7 +350,7 @@ void	best_move_for_a(t_data *data, int n)
 	}
 	data->first = -1;
 	i = data->a->size;
-	while (--i > 0 && data->first == -1)
+	while (--i >= 0 && data->first == -1)
 		if (data->a->stack[i] >= data->chunked_a[n].min && data->a->stack[i] <= data->chunked_a[n].max)
 		{
 			data->first = i;
@@ -307,7 +364,7 @@ void	best_move_for_a(t_data *data, int n)
 			data->last = i;
 			data->last_v = data->a->stack[i];
 		}
-	if (data->last == data->first)
+	if (data->last == data->first || data->last == -1)
 		data->last = -1;
 	else
 		data->last++;
@@ -337,42 +394,82 @@ void		sort_chunked_stack(t_data *data, int n)
 	i = -1;
 	while (++i < n)
 	{
-		printf("{%d} ", i);
 		data->first = 1;
 		while (data->first != -1)
 		{
 			best_move_for_a(data, i);
 			if (data->first == -1)
 			{
-				printf("\n");
 				break ;
 			}
-			printf("%d ", data->ma->value);
+		//	printf("%d ", data->ma->value);
 			best_move_for_b(data);
-			exec_moves(data);
+			generate_moves(data);
 			pb(data);
-			//if (top_stack(data->b) < data->b->stack[data->b->size - 2] && data->b->size >= 2)
-			//	rb(data);
 		}
 	}
-	print_stack(data->b);
-	push_back_to_a(data);
+	
+	i = 0;
+	while (data->b->stack[i] != data->b->max)
+		i++;
+	if (i != data->b->size - 1)
+	{
+		data->mb->move = rrb;
+		data->mb->n = i + 1;
+	}
+	else
+		data->mb->n = 0;
+	data->ma->n = 0;
+	generate_moves(data);
+	while (data->b->size)
+		pa(data);
 	free(data->b->stack);
 }
 
 int		*push_swap(t_data *data)
 {
 	int				i;
+	int				min;
+	int				i_min;
+	t_stack			*temp;
 
-	data->sorted_a->size = data->a->size;
-	data->sorted_a->stack = copy(data->a);
+	data->sorted_a = copy(data->a);
+	temp = copy(data->a);
 	sort_stack(data->sorted_a);
-	i = 2;
-	data->chunked_a = chunk_stack(data->sorted_a, i, 1);
-	print_stack(data->a);
-	sort_chunked_stack(data, i);
+	data->print = 0;
+	min = 0;
+	i_min = 0;
+	i = 0;
+	free(data->a->stack);
+	free(data->a);
+	while (++i < data->a->size)
+	{
+		data->a = copy(temp);
+		data->n_ope = 0;
+		data->chunked_a = chunk_stack(data->sorted_a, i, 0);
+		sort_chunked_stack(data, i);
+		if (i == 1 || data->n_ope < min)
+		{
+			min = data->n_ope;
+			i_min = i;
+		}
+		free(data->chunked_a);
+		free(data->a->stack);
+		free(data->a);
+	}
+	//printf("%d for %d\n", min, i_min);
+	data->a = copy(temp);
+	data->n_ope = 0;
+	data->chunked_a = chunk_stack(data->sorted_a, i_min, 0);
+	data->print = 1;
+	sort_chunked_stack(data, i_min);
 	free(data->chunked_a);
 	free(data->sorted_a->stack);
+	free(data->sorted_a);
+	free(temp->stack);
+	free(temp);
+	free(data->a->stack);
+	free(data->a);
 	return (NULL);
 }
 
@@ -404,7 +501,6 @@ void	generate_random_stack(t_stack *a, int n)
 {
 	int		i;
 
-	srand(10);
 	a->stack = malloc(sizeof(int) * n);
 	a->size = n;
 	i = -1;
@@ -414,14 +510,16 @@ void	generate_random_stack(t_stack *a, int n)
 	while (++i < n)
 		swap(&a->stack[rand() % n], &a->stack[rand() % n]);
 }
-
+#include <sys/types.h>
+       #include <sys/stat.h>
+       #include <fcntl.h>
 int main(int ac, char **av)
 {
 	t_data			data;
-	t_stack			a;
-	t_stack			b;
 	t_move			ma;
 	t_move			mb;
+	t_move			reversed_a;
+	t_move			reversed_b;
 	t_stack			sorted_a;
 	static void		(*redirect[11])(t_data *) =
 	{
@@ -433,19 +531,27 @@ int main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	(void)redirect;
-	data.a = &a;
-	data.b = &b;
+	data.a = malloc(sizeof(t_stack));
+	int test = open("test.output", O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
+	 S_IROTH);
+	int	tempfd = dup(1);
+	write(1, "1", 1);
+	dup2(test, 1);
+	//data.b = malloc(sizeof(t_stack));
 	mb.n = 0;
 	ma.n = 0;
 	data.ma = &ma;
 	data.mb = &mb;
+	data.ra = &reversed_a;
+	data.rb = &reversed_b;
 	data.sorted_a = &sorted_a;
-	data.print = 0;
-	generate_random_stack(data.a, 8);
+	srand(42);
+	generate_random_stack(data.a, ft_atoi(av[1]));
 	//load_stack_arg(data.a, av, ac);
-	if (!checker(&a, a.size, 0))
+	if (!checker(data.a, data.a->size, 0))
 		push_swap(&data);
 	//print_stacks(&a, &b);
-	free(data.a->stack);
+	close(test);
+	dup2(tempfd, 1);
 	return (1);
 }

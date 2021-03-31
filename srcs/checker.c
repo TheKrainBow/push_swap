@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/29 14:24:43 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:25:32 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void	generate_random_stack(t_stack *a, int n)
 {
 	int		i;
 
-	srand(10);
 	a->stack = malloc(sizeof(int) * n);
 	a->size = n;
 	i = -1;
@@ -157,15 +156,16 @@ int main(int ac, char **av)
 	int	red_r;
 	int	save;
 
-	generate_random_stack(&a, 8);
 	(void)ac;
 	(void)av;
 	//load_stack_arg(&a, av, ac);
+	data.a = &a;
+	srand(42);
+	generate_random_stack(data.a, ft_atoi(av[1]));
 	save = a.size;
 	b.stack = malloc(sizeof(int) * (a.size));
 	b.size = 0;
 	load_stack_int(&b, 0);
-	data.a = &a;
 	data.b = &b;
 	data.print = 0;
 	char	*line;
