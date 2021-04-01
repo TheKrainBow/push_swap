@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/31 17:25:32 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:20:33 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,7 @@ void	generate_random_stack(t_stack *a, int n)
 
 int main(int ac, char **av)
 {
-	t_stack		a;
-	t_stack		b;
-	t_data		data;
+	t_data		*data;
 	static void		(*redirect[11])(t_data *) =
 	{
 		sa, sb, ss,
@@ -159,15 +157,17 @@ int main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	//load_stack_arg(&a, av, ac);
-	data.a = &a;
+	data = malloc(sizeof(t_data));
+	data->a = malloc(sizeof(t_stack));
+	data->b = malloc(sizeof(t_stack));
 	srand(42);
-	generate_random_stack(data.a, ft_atoi(av[1]));
-	save = a.size;
-	b.stack = malloc(sizeof(int) * (a.size));
-	b.size = 0;
-	load_stack_int(&b, 0);
-	data.b = &b;
-	data.print = 0;
+	generate_random_stack(data->a, ft_atoi(av[1]));
+	//print_stack(data.a);
+	save = data->a->size;
+	data->b->stack = malloc(sizeof(int) * (data->a->size));
+	data->b->size = 0;
+	load_stack_int(data->b, 0);
+	data->print = 0;
 	char	*line;
 	int		ret;
 	ret = 1;
@@ -175,13 +175,16 @@ int main(int ac, char **av)
 	{
 		ret = get_next_line(0, &line);
 		red_r = node(line);
-		free(line);
 		if (red_r != -1)
-			redirect[red_r](&data);
+			redirect[red_r](data);
+		free(line);
 	}
-	if (!checker(&a, save, 1))
-		print_stack(&a);
-	free(a.stack);
-	free(b.stack);
+	if (!checker(data->a, save, 1))
+		print_stack(data->a);
+	free(data->a->stack);
+	free(data->b->stack);
+	free(data->a);
+	free(data->b);
+	free(data);
 	return (1);
 }

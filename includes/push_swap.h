@@ -6,12 +6,13 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/03/31 17:43:15 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:26:41 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include "color.h"
 
 # include "../libft/includes/libft.h"
 
@@ -40,11 +41,9 @@ typedef struct		s_data
 	t_stack			*sorted_a;
 	t_chunk			*chunked_a;
 	int				first;
-	int				first_v;
-	int				last;
-	int				last_v;
 	int				print;
 	int				n_ope;
+	int				n_chunk;
 }					t_data;
 
 typedef struct		s_move

@@ -55,12 +55,21 @@ void		sb(t_data *d)
 
 void		ss(t_data *d)
 {
-	if (d->a->size > 1)
-		sa(d);
-	if (d->b->size > 1)
-		sb(d);
 	if (d->print)
+	{
 		printf("ss\n");
+		d->print = 0;
+		if (d->a->size > 1)
+			sa(d);
+		if (d->b->size > 1)
+			sb(d);
+		d->print = 1;
+	}
+	else
+	{
+		sa(d);
+		sb(d);
+	}
 	d->n_ope--;
 }
 
@@ -140,10 +149,19 @@ void		rb(t_data *d)
 
 void		rr(t_data *d)
 {
-	ra(d);
-	rb(d);
 	if (d->print)
+	{
 		printf("rr\n");
+		d->print = 0;
+		ra(d);
+		rb(d);
+		d->print = 1;
+	}
+	else
+	{
+		ra(d);
+		rb(d);
+	}
 	d->n_ope--;
 }
 
@@ -181,9 +199,18 @@ void		rrb(t_data *d)
 
 void		rrr(t_data *d)
 {
-	rra(d);
-	rrb(d);
 	if (d->print)
+	{
 		printf("rrr\n");
+		d->print = 0;
+		rra(d);
+		rrb(d);
+		d->print = 1;
+	}
+	else
+	{
+		rra(d);
+		rrb(d);
+	}
 	d->n_ope--;
 }
