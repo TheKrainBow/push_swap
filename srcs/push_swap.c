@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/01 19:30:33 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:00:30 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,10 @@ t_chunk		*chunk_stack_temp(t_data *data, t_stack *a, int n, int print)
 	int			i;
 	t_chunk		*dest;
 
-	//print_stack(a);
 	data->n_chunk = (int)(a->size / n);
 	if ((a->size % n))
 		(data->n_chunk)++;
 	dest = malloc(sizeof(t_chunk) * (data->n_chunk));
-	//printf("%d Chunk sizeof %d\n", size, n);
 	i = -1;
 	while (++i < data->n_chunk)
 	{
@@ -198,7 +196,7 @@ int			top_stack(t_stack *a)
 
 int		is_between(int c, int a, int b)
 {
-	return (/*(c >= a && c <= b) ||*/ (c >= b && c <= a));
+	return (c >= b && c <= a);
 }
 
 int		check_b_insert(t_data *data, int index)
@@ -208,26 +206,23 @@ int		check_b_insert(t_data *data, int index)
 	prev = index - 1;
 	if (index == 0)
 		prev = data->b->size - 1;
-	if (data->b->stack[index] > data->ma->value && data->b->stack[prev] < data->ma->value)
-	{
-		//printf("%d between [%d;%d]\n", data->ma->value, data->b->stack[prev], data->b->stack[index]);
+	if (data->b->stack[index] > data->ma[0]->value && data->b->stack[prev] < data->ma[0]->value)
 		return (1);
-	}
 	return (0);
 }
 
 void		revers_moves(t_data *data)
 {
-	if (data->ma->move == &ra)
-		data->ra->move = &rra;
+	if (data->ma[0]->move == &ra)
+		data->ma[1]->move = &rra;
 	else
-		data->ra->move = &ra;
-	if (data->mb->move == &rb)
-		data->rb->move = &rrb;
+		data->ma[1]->move = &ra;
+	if (data->mb[0]->move == &rb)
+		data->mb[1]->move = &rrb;
 	else
-		data->rb->move = &rb;
-	data->ra->n = data->a->size - data->ma->n;
-	data->rb->n = data->b->size - data->mb->n;
+		data->mb[1]->move = &rb;
+	data->ma[1]->n = data->a->size - data->ma[0]->n;
+	data->mb[1]->n = data->b->size - data->mb[0]->n;
 
 }
 
@@ -278,68 +273,32 @@ int			ind(int i, char a)
 	return (i % 2);
 }
 
-t_move			*copy_move(t_move *a)
-{
-	t_move		*dest;
-
-	dest = malloc(sizeof(t_move));
-	dest->n = a->n;
-	dest->move = a->move;
-	dest->value = a->value;
-	return (dest);
-}
-
 void		generate_moves(t_data *data)
 {
-	t_move	*ma[2];
-	t_move	*mb[2];
-	int		moves[4];
+	int		moves;
 	int		n[2];
-	int		temp_ope;
 	int		i;
 	int		i_temp;
 	int		min;
 
 	revers_moves(data);
-	temp_ope = data->n_ope;
-	ma[0] = copy_move(data->ma);
-	mb[0] = copy_move(data->mb);
-	ma[1] = copy_move(data->ra);
-	mb[1] = copy_move(data->rb);
-	/*printf("	%d %s\n", ma[0]->n, ma[0]->move == &ra ? "ra" : "rra");
-	printf("	%d %s\n", mb[0]->n, mb[0]->move == &rb ? "rb" : "rrb");
-	printf("	%d %s\n", ma[1]->n, ma[1]->move == &ra ? "ra" : "rra");
-	printf("	%d %s\n", mb[1]->n, mb[1]->move == &rb ? "rb" : "rrb");*/
-	n[0] = ma[0]->n;
-	n[1] = mb[0]->n;
-	min = exec_moves(data, ma[0], mb[0], 0);
-	ma[0]->n = n[0];
-	mb[0]->n = n[1];
-	data->n_ope = temp_ope;
-	i_temp = 0;
-	i = 0;
+	n[0] = data->ma[0]->n;
+	n[1] = data->mb[0]->n;
+	i = -1;
 	while (++i < 4)
 	{
-		n[0] = ma[ind(i, 'a')]->n;
-		n[1] = mb[ind(i, 'b')]->n;
-		moves[i] = exec_moves(data, ma[ind(i, 'a')], mb[ind(i, 'b')], 0);
-		//printf("moves[%d] = %d with ma[%d]mb[%d]\n", i, moves[i] - data->n_ope, ind(i, 'a'), ind(i, 'b'));
-		if (moves[i] < min)
+		n[0] = data->ma[ind(i, 'a')]->n;
+		n[1] = data->mb[ind(i, 'b')]->n;
+		moves = exec_moves(data, data->ma[ind(i, 'a')], data->mb[ind(i, 'b')], 0);
+		if (moves < min || i == 0)
 		{
 			i_temp = i;
-			min = moves[i];
+			min = moves;
 		}
-		ma[ind(i, 'a')]->n = n[0];
-		mb[ind(i, 'b')]->n = n[1];
-		data->n_ope = temp_ope;
+		data->ma[ind(i, 'a')]->n = n[0];
+		data->mb[ind(i, 'b')]->n = n[1];
 	}
-	i = i_temp;
-	exec_moves(data, ma[ind(i, 'a')], mb[ind(i, 'b')], 1);
-	free(ma[0]);
-	free(mb[0]);
-	free(ma[1]);
-	free(mb[1]);
-
+	exec_moves(data, data->ma[ind(i_temp, 'a')], data->mb[ind(i_temp, 'b')], 1);
 }
 
 void	best_move_for_b(t_data *data)
@@ -356,8 +315,8 @@ void	best_move_for_b(t_data *data)
 			break ;
 	if (i != -1)
 	{
-		data->mb->move = rrb;
-		data->mb->n = i;
+		data->mb[0]->move = rrb;
+		data->mb[0]->n = i;
 		return ;
 	}
 	else
@@ -367,11 +326,11 @@ void	best_move_for_b(t_data *data)
 			i++;
 		if (i != data->b->size - 1)
 		{
-			data->mb->move = rrb;
-			data->mb->n = i + 1;
+			data->mb[0]->move = rrb;
+			data->mb[0]->n = i + 1;
 		}
 		else
-			data->mb->n = 0;
+			data->mb[0]->n = 0;
 	}
 }
 
@@ -381,8 +340,8 @@ void	best_move_for_a(t_data *data, int n)
 
 	if (data->a->size == 1)
 	{
-		data->ma->n = 0;
-		data->ma->value = data->a->stack[0];
+		data->ma[0]->n = 0;
+		data->ma[0]->value = data->a->stack[0];
 		data->first = 0;
 		return ;
 	}
@@ -394,23 +353,23 @@ void	best_move_for_a(t_data *data, int n)
 	if (data->first == -1)
 		return ;
 	data->first = (data->a->size - data->first - 1);
-	data->ma->move = ra;
-	data->ma->n = data->first;
-	data->ma->value = data->a->stack[i + 1];
+	data->ma[0]->move = ra;
+	data->ma[0]->n = data->first;
+	data->ma[0]->value = data->a->stack[i + 1];
 }
 
 void		clear_move(t_data *data)
 {
-	data->ra->move = NULL;
-	data->ra->n = 0;
-	data->rb->move = NULL;
-	data->rb->n = 0;
-	data->ma->move = NULL;
-	data->ma->n = 0;
-	data->ma->value = 0;
-	data->mb->move = NULL;
-	data->mb->n = 0;
-	data->mb->value = 0;
+	data->ma[1]->move = NULL;
+	data->ma[1]->n = 0;
+	data->mb[1]->move = NULL;
+	data->mb[1]->n = 0;
+	data->ma[0]->move = NULL;
+	data->ma[0]->n = 0;
+	data->ma[0]->value = 0;
+	data->mb[0]->move = NULL;
+	data->mb[0]->n = 0;
+	data->mb[0]->value = 0;
 }
 
 void		sort_chunked_stack(t_data *data, int n)
@@ -440,12 +399,12 @@ void		sort_chunked_stack(t_data *data, int n)
 		i++;
 	if (i != data->b->size - 1)
 	{
-		data->mb->move = rrb;
-		data->mb->n = i + 1;
+		data->mb[0]->move = rrb;
+		data->mb[0]->n = i + 1;
 	}
 	else
-		data->mb->n = 0;
-	data->ma->n = 0;
+		data->mb[0]->n = 0;
+	data->ma[0]->n = 0;
 	generate_moves(data);
 	while (data->b->size)
 		pa(data);
@@ -453,7 +412,7 @@ void		sort_chunked_stack(t_data *data, int n)
 	free(data->b);
 }
 
-int		*push_swap(t_data *data)
+void		push_swap(t_data *data)
 {
 	int				i;
 	int				min;
@@ -469,14 +428,12 @@ int		*push_swap(t_data *data)
 	i = 0;
 	free(data->a->stack);
 	free(data->a);
-	while (++i < data->a->size)
+	while (++i < data->a->size / 5)
 	{
 		data->a = copy(temp);
 		data->n_ope = 0;
-		data->chunked_a = chunk_stack(data->sorted_a, i, 0);
-		//data->chunked_a = chunk_stack_temp(data, data->sorted_a, i, 0);
-		//sort_chunked_stack(data, data->n_chunk);
-		sort_chunked_stack(data, i);
+		data->chunked_a = chunk_stack_temp(data, data->sorted_a, i, 0);
+		sort_chunked_stack(data, data->n_chunk);
 		if (i == 1 || data->n_ope < min)
 		{
 			min = data->n_ope;
@@ -486,25 +443,18 @@ int		*push_swap(t_data *data)
 		free(data->a->stack);
 		free(data->a);
 	}
-	//printf("%d for %d\n", min, i_min);
 	data->a = copy(temp);
 	data->n_ope = 0;
-	data->chunked_a = chunk_stack(data->sorted_a, i_min, 0);
-	//data->chunked_a = chunk_stack_temp(data, data->sorted_a, i_min, 0);
-	data->print = 1;
-	sort_chunked_stack(data, i_min);
-	//sort_chunked_stack(data, data->n_chunk);
+	data->chunked_a = chunk_stack_temp(data, data->sorted_a, i_min, 0);
+	data->print = 0;
+	sort_chunked_stack(data, data->n_chunk);
 	free(data->chunked_a);
 	free(data->sorted_a->stack);
 	free(data->sorted_a);
 	free(temp->stack);
 	free(temp);
-
-	//print_stack(data->a);
-
 	free(data->a->stack);
 	free(data->a);
-	return (NULL);
 }
 
 
@@ -544,54 +494,55 @@ void	generate_random_stack(t_stack *a, int n)
 	while (++i < n)
 		swap(&a->stack[rand() % n], &a->stack[rand() % n]);
 }
-#include <sys/types.h>
-       #include <sys/stat.h>
-       #include <fcntl.h>
+
 int main(int ac, char **av)
 {
 	t_data			*data;
-	static void		(*redirect[11])(t_data *) =
-	{
-		sa, sb, ss,
-		pa, pb,
-		ra, rb, rr, rra, rrb, rrr
-	};
 
-	(void)ac;
-	(void)av;
-	(void)redirect;
-	//int test = open("test.output", O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
-	// S_IROTH);
-	//int	tempfd = dup(1);
-	//write(1, "1", 1);
-//	dup2(test, 1);
-	//data->b = malloc(sizeof(t_stack));
-	data = malloc(sizeof(t_data));
-	data->a = malloc(sizeof(t_stack));
-	data->ma = malloc(sizeof(t_move));
-	data->mb = malloc(sizeof(t_move));
-	data->ra = malloc(sizeof(t_move));
-	data->rb = malloc(sizeof(t_move));
-	data->ma->n = 0;
-	data->mb->n = 0;
-	srand(42);
-	generate_random_stack(data->a, ft_atoi(av[1]));
-	//load_stack_arg(data->a, av, ac);
-	//print_stack(data->a);
-	if (!checker(data->a, data->a->size, 0))
-		push_swap(data);
-	else
+	int		i;
+	int		min;
+	int		max;
+	int		ope_average = 0;
+	i = -1;
+	while (++i < 50)
 	{
-		free(data->a->stack);
-		free(data->a);
+		data = malloc(sizeof(t_data));
+		data->a = malloc(sizeof(t_stack));
+		data->ma[0] = malloc(sizeof(t_move));
+		data->mb[0] = malloc(sizeof(t_move));
+		data->ma[1] = malloc(sizeof(t_move));
+		data->mb[1] = malloc(sizeof(t_move));
+		data->ma[0]->n = 0;
+		data->mb[0]->n = 0;
+		srand(i);
+		generate_random_stack(data->a, ft_atoi(av[1]));
+		if (0)
+			load_stack_arg(data->a, av, ac);
+		if (!checker(data->a, data->a->size, 0))
+			push_swap(data);
+		else
+		{
+			free(data->a->stack);
+			free(data->a);
+		}
+		ope_average += data->n_ope;
+		if (i == 0)
+		{
+			min = data->n_ope;
+			max = data->n_ope;
+		}
+		if (data->n_ope > max)
+			max = data->n_ope;
+		if (data->n_ope < min)
+			min = data->n_ope;
+		printf("%d%%\n\033[A", i * 2);
+		free(data->ma[0]);
+		free(data->mb[0]);
+		free(data->ma[1]);
+		free(data->mb[1]);
+		free(data);
 	}
-	free(data->ma);
-	free(data->mb);
-	free(data->ra);
-	free(data->rb);
-	free(data);
-	//print_stacks(&a, &b);
-	//close(test);
-	//dup2(tempfd, 1);
+	printf("Average is %d operations.\n", ope_average / i);
+	printf("Best was %d and worst was %d\n", min, max);
 	return (1);
 }

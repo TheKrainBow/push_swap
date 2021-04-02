@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/01 19:20:33 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:19:21 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,47 @@ void	generate_random_stack(t_stack *a, int n)
 		swap(&a->stack[rand() % n], &a->stack[rand() % n]);
 }
 
+int			empty_line(int empty)
+{
+	int			i;
+
+	if (empty == 0)
+		printf(BCYAN"\033[AChecker>:"BWHITE" Hey.. Don't let me empty :-(\n"WHITE);
+	if (empty == 1)
+		printf(BCYAN"\033[AChecker>:"BWHITE" Ouch.. You did it again :-/\n"WHITE);
+	if (empty == 2)
+		printf(BCYAN"\033[AChecker>:"BWHITE" Oof.. It really hurt you know? >.<\n"WHITE);
+	if (empty == 3)
+		printf(BCYAN"\033[AChecker>:"BWHITE" Is it a provocation? :-|\n"WHITE);
+	if (empty == 4)
+		printf(BCYAN"\033[AChecker>:"BWHITE" Ok. This is not fun anymore.\n"WHITE);
+	if (empty == 5)
+	{
+		printf(BCYAN"\033[AChecker>:"BWHITE" I wanted to be kind, but here you are..\n"BRED);
+		i = -1;
+		while (i < 500000000)
+			i++;
+		printf("\n\n"BRED);
+		printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
+		printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
+		printf("	KOKOK       KOKOKO          KOKOK      KOKOK       KOKO\n");
+		printf("	KOKOK     KOKOKO            KOKO        KOKO       KOKO\n");
+		printf("	KOKOK   KOKOKO              KOKO        KOKO       KOKO\n");
+		printf("	KOKOK KOKOKO               KOKO          KOKO      KOKO\n");
+		printf("	KOKOKOKOKO                 KOKO          KOKO      KOKO\n");
+		printf("	KOKOKOKOKO                 KOKO          KOKO      KOKO\n");
+		printf("	KOKOK KOKOKO               KOKO          KOKO      KOKO\n");
+		printf("	KOKOK   KOKOKO              KOKO        KOKO       KOKO\n");
+		printf("	KOKOK     KOKOKO            KOKO        KOKO           \n");
+		printf("	KOKOK       KOKOKO          KOKOK      KOKOK           \n");
+		printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
+		printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
+		printf(WHITE"\n");
+		return (1);
+	}
+	return (0);
+}
+
 int main(int ac, char **av)
 {
 	t_data		*data;
@@ -153,6 +194,7 @@ int main(int ac, char **av)
 	};
 	int	red_r;
 	int	save;
+	int	empty;
 
 	(void)ac;
 	(void)av;
@@ -175,8 +217,17 @@ int main(int ac, char **av)
 	{
 		ret = get_next_line(0, &line);
 		red_r = node(line);
+		//printf("Error [%s] invalid\n", line);
 		if (red_r != -1)
 			redirect[red_r](data);
+		else if (ret && line[0])
+		{
+			printf("Error [%s] invalid\n", line);
+			exit (1);
+		}
+		else if (ret != 0)
+			if (empty_line(empty++))
+				break ;
 		free(line);
 	}
 	if (!checker(data->a, save, 1))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 17:59:38 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/01 18:04:46 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:09:29 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 
-# define BWHITE "\033[1m"
+# define BWHITE "\033[1;37m"
 # define BGRAY "\033[1;29m"
 # define BBLACK "\033[1;30m"
 # define BRED "\033[1;31m"

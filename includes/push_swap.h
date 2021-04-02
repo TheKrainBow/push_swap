@@ -3,17 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/01 19:26:41 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:37:49 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "color.h"
 
+# ifdef BONUS
+#  include <sys/types.h>
+#  include <sys/stat.h>
+#  include <fcntl.h>
+# endif
+
+# include "color.h"
 # include "../libft/includes/libft.h"
 
 typedef struct		s_stack
@@ -34,10 +40,8 @@ typedef struct		s_data
 {
 	t_stack			*a;
 	t_stack			*b;
-	struct s_move	*ma;
-	struct s_move	*mb;
-	struct s_move	*ra;
-	struct s_move	*rb;
+	struct s_move	*ma[2];
+	struct s_move	*mb[2];
 	t_stack			*sorted_a;
 	t_chunk			*chunked_a;
 	int				first;

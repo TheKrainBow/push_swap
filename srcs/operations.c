@@ -18,6 +18,10 @@ void		print_stack(t_stack *a)
 	int		i;
 
 	i = -1;
+	while (++i < a->size - 1)
+		printf("--");
+	printf(">\n");
+	i = -1;
 	while (++i < a->size)
 		printf("%d ", a->stack[i]);
 	printf("\n");
