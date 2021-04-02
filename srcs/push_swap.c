@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/02 15:41:41 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/02 20:46:52 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,19 @@ void		print_stacks(t_stack *a, t_stack *b)
 	printf("|a b|\n");
 }
 
-void		load_stack_arg(t_stack *a, char **av, int ac)
+void		load_stack_arg(t_data *data, char **args)
 {
 	int		i;
-	int		j;
-	int		k;
-	char	**temp;
 
 	i = -1;
-	a->size = 0;
-	while (++i < ac)
-	{
-		temp = ft_split(av[i + 1], ' ');
-		j = -1;
-		while (temp && temp[++j])
-			a->size++;
-		ft_free_tab(temp);
-	}
-	a->stack = malloc(sizeof(int) * a->size);
+	data->a->size = 0;
+	while (args && args[++i])
+		data->a->size++;
+	data->a->stack = malloc(sizeof(int) * data->a->size);
 	i = -1;
-	k = -1;
-	while (++i < ac)
+	while (args && args[++i])
 	{
-		temp = ft_split(av[i + 1], ' ');
-		j = -1;
-		while (temp && temp[++j] && ++k > -1)
-			a->stack[a->size - k - 1] = ft_atoi(temp[j]);
-		ft_free_tab(temp);
+		data->a->stack[data->a->size - i - 1] = ft_atoi(args[i]);
 	}
 }
 
@@ -500,6 +486,7 @@ t_data		*init_data(void)
 
 	data = malloc(sizeof(t_data));
 	data->a = malloc(sizeof(t_stack));
+	data->a->stack = NULL;
 	data->ma[0] = malloc(sizeof(t_move));
 	data->mb[0] = malloc(sizeof(t_move));
 	data->ma[1] = malloc(sizeof(t_move));
@@ -520,17 +507,66 @@ void		free_data(t_data *data)
 	free(data);
 }
 
-int main(int ac, char **av)
+char	**create_args(char **av, int ac)
+{
+	char		**dest;
+	char		**splited;
+	char		**temp;
+	int			i;
+
+	dest = NULL;
+	i = 0;
+	while (++i < ac)
+	{
+		temp = dest;
+		splited = ft_split(av[i], ' ');
+		dest = ft_tabjoin(dest, splited);
+		ft_free_tab(temp);
+		ft_free_tab(splited);
+	}
+	return (dest);
+}
+
+int		parsing(t_data *data, char **args)
+{
+	int		i;
+	int		j;
+
+	(void)data;
+	i = -1;
+	if (args[0][0] != '-')
+	
+	while (args[++i])
+	{
+		j = -1;
+		while (args[i][++j])
+		{
+		}
+	}
+	return (0);
+}
+
+int		main(int ac, char **av)
 {
 	t_data			*data;
+	char			**args;
 
 	data = init_data();
+	args = create_args(av, ac);
+	if (parsing(data, args))
+	{
+		free_data(data);
+		ft_free_tab(args);
+		printf("Error\n");
+		return (1);
+	}
 	srand(42);
-	generate_random_stack(data->a, ft_atoi(av[1]));
-	if (0)
-		load_stack_arg(data->a, av, ac);
+	//generate_random_stack(data->a, ft_atoi(av[1]));
+	//if (0)
+	load_stack_arg(data, args);
 	if (!checker(data->a, data->a->size, 0))
 		push_swap(data, 1);
 	free_data(data);
-	return (1);
+	ft_free_tab(args);
+	return (0);
 }

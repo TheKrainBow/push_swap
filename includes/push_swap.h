@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/02 10:37:49 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/02 20:47:25 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef struct		s_data
 	int				print;
 	int				n_ope;
 	int				n_chunk;
+	int				random;
+	int				color;
+	int				visualize;
 }					t_data;
 
 typedef struct		s_move

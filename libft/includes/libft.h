@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 04:57:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/01 18:06:37 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:00:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ char					*ft_strndup(char *str, int start, int len);
 void					ft_lstprint(t_list *lst);
 void					ft_lstprint_fd(t_list *lst, int fd);
 char					**ft_lst_to_tab(t_list *lst);
+char					**ft_tabjoin(char **s1, char **s2);
 #endif
