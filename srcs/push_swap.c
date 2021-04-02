@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/02 13:00:30 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:41:41 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,7 +412,7 @@ void		sort_chunked_stack(t_data *data, int n)
 	free(data->b);
 }
 
-void		push_swap(t_data *data)
+void		push_swap(t_data *data, int print)
 {
 	int				i;
 	int				min;
@@ -446,15 +446,14 @@ void		push_swap(t_data *data)
 	data->a = copy(temp);
 	data->n_ope = 0;
 	data->chunked_a = chunk_stack_temp(data, data->sorted_a, i_min, 0);
-	data->print = 0;
+	if (print)
+		data->print = 1;
 	sort_chunked_stack(data, data->n_chunk);
 	free(data->chunked_a);
 	free(data->sorted_a->stack);
 	free(data->sorted_a);
 	free(temp->stack);
 	free(temp);
-	free(data->a->stack);
-	free(data->a);
 }
 
 
@@ -495,54 +494,43 @@ void	generate_random_stack(t_stack *a, int n)
 		swap(&a->stack[rand() % n], &a->stack[rand() % n]);
 }
 
+t_data		*init_data(void)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	data->a = malloc(sizeof(t_stack));
+	data->ma[0] = malloc(sizeof(t_move));
+	data->mb[0] = malloc(sizeof(t_move));
+	data->ma[1] = malloc(sizeof(t_move));
+	data->mb[1] = malloc(sizeof(t_move));
+	data->ma[0]->n = 0;
+	data->mb[0]->n = 0;
+	return (data);
+}
+
+void		free_data(t_data *data)
+{
+	free(data->a->stack);
+	free(data->a);
+	free(data->ma[0]);
+	free(data->mb[0]);
+	free(data->ma[1]);
+	free(data->mb[1]);
+	free(data);
+}
+
 int main(int ac, char **av)
 {
 	t_data			*data;
 
-	int		i;
-	int		min;
-	int		max;
-	int		ope_average = 0;
-	i = -1;
-	while (++i < 50)
-	{
-		data = malloc(sizeof(t_data));
-		data->a = malloc(sizeof(t_stack));
-		data->ma[0] = malloc(sizeof(t_move));
-		data->mb[0] = malloc(sizeof(t_move));
-		data->ma[1] = malloc(sizeof(t_move));
-		data->mb[1] = malloc(sizeof(t_move));
-		data->ma[0]->n = 0;
-		data->mb[0]->n = 0;
-		srand(i);
-		generate_random_stack(data->a, ft_atoi(av[1]));
-		if (0)
-			load_stack_arg(data->a, av, ac);
-		if (!checker(data->a, data->a->size, 0))
-			push_swap(data);
-		else
-		{
-			free(data->a->stack);
-			free(data->a);
-		}
-		ope_average += data->n_ope;
-		if (i == 0)
-		{
-			min = data->n_ope;
-			max = data->n_ope;
-		}
-		if (data->n_ope > max)
-			max = data->n_ope;
-		if (data->n_ope < min)
-			min = data->n_ope;
-		printf("%d%%\n\033[A", i * 2);
-		free(data->ma[0]);
-		free(data->mb[0]);
-		free(data->ma[1]);
-		free(data->mb[1]);
-		free(data);
-	}
-	printf("Average is %d operations.\n", ope_average / i);
-	printf("Best was %d and worst was %d\n", min, max);
+	data = init_data();
+	srand(42);
+	generate_random_stack(data->a, ft_atoi(av[1]));
+	if (0)
+		load_stack_arg(data->a, av, ac);
+	if (!checker(data->a, data->a->size, 0))
+		push_swap(data, 1);
+	free_data(data);
 	return (1);
 }
