@@ -6,31 +6,12 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/02 12:19:21 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/04 15:33:10 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void		print_stacks(t_stack *a, t_stack *b)
-{
-	int		i;
-
-	i = ft_max(a->size, b->size);
-	printf("_____\n");
-	while (--i >= 0)
-	{
-		if (i < a->size)
-			printf("|%d ", a->stack[i]);
-		else
-			printf("|  ");
-		if (i < b->size)
-			printf("%d|\n", b->stack[i]);
-		else
-			printf(" |\n");
-	}
-	printf("|a b|\n");
-}
 void		load_stack_arg(t_stack *a, char **av, int ac)
 {
 	int		i;
@@ -198,17 +179,17 @@ int main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	//load_stack_arg(&a, av, ac);
-	data = malloc(sizeof(t_data));
-	data->a = malloc(sizeof(t_stack));
-	data->b = malloc(sizeof(t_stack));
-	srand(42);
-	generate_random_stack(data->a, ft_atoi(av[1]));
-	//print_stack(data.a);
+	data = init_data();
+	data->flags->args = create_args(av, ac);
+	if (ac == 1 || parsing(data))
+		ft_exit(data, 1, NULL);
+	if (data->flags->random)
+		generate_random_stack(data);
+	else
+		load_stack_arg(data, data->flags->args + (data->flags->visualize || data->flags->color || data->flags->random));
 	save = data->a->size;
 	data->b->stack = malloc(sizeof(int) * (data->a->size));
 	data->b->size = 0;
-	load_stack_int(data->b, 0);
 	data->print = 0;
 	char	*line;
 	int		ret;
@@ -231,7 +212,7 @@ int main(int ac, char **av)
 		free(line);
 	}
 	if (!checker(data->a, save, 1))
-		print_stack(data->a);
+		print_stack(data->a, 0);
 	free(data->a->stack);
 	free(data->b->stack);
 	free(data->a);

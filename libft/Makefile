@@ -4,7 +4,8 @@ SRCS_CHAR	=	char/ft_isalnum.c						\
 				char/ft_isdigit.c						\
 				char/ft_isprint.c						\
 				char/ft_tolower.c						\
-				char/ft_toupper.c
+				char/ft_toupper.c						\
+				char/ft_strmap.c
 
 SRCS_GNL	=	get_next_line/get_next_line.c			\
 				get_next_line/get_next_line_utils.c

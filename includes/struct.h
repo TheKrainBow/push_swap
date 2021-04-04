@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/02 20:47:25 by magostin         ###   ########.fr       */
+/*   Created: 2021/04/04 15:42:49 by mdelwaul          #+#    #+#             */
+/*   Updated: 2021/04/04 15:43:02 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-
-# ifdef BONUS
-#  include <sys/types.h>
-#  include <sys/stat.h>
-#  include <fcntl.h>
-# endif
-
-# include "color.h"
-# include "../libft/includes/libft.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
 typedef struct		s_stack
 {
@@ -36,6 +27,14 @@ typedef struct		s_chunk
 	int				max;
 }					t_chunk;
 
+typedef struct		s_flags
+{
+	int				random;
+	int				color;
+	int				visualize;
+	char			**args;
+}					t_flags;
+
 typedef struct		s_data
 {
 	t_stack			*a;
@@ -48,9 +47,7 @@ typedef struct		s_data
 	int				print;
 	int				n_ope;
 	int				n_chunk;
-	int				random;
-	int				color;
-	int				visualize;
+	t_flags			*flags;
 }					t_data;
 
 typedef struct		s_move
@@ -59,18 +56,5 @@ typedef struct		s_move
 	int				value;
 	void			(*move)(t_data *);
 }					t_move;
-
-void		sa(t_data *data);
-void		sb(t_data *data);
-void		ss(t_data *data);
-void		pa(t_data *data);
-void		pb(t_data *data);
-void		ra(t_data *data);
-void		rb(t_data *data);
-void		rr(t_data *data);
-void		rra(t_data *data);
-void		rrb(t_data *data);
-void		rrr(t_data *data);
-void		print_stack(t_stack *a);
 
 #endif

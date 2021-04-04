@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 12:28:28 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 12:34:10 by mdelwaul         ###   ########.fr       */
+/*   Created: 2021/04/04 16:06:26 by mdelwaul          #+#    #+#             */
+/*   Updated: 2021/04/04 16:06:42 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "common.h"
 
-
-int		ft_isalnum(int c)
+void		ft_exit(t_data *data, int free_power, void *ptr)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	if (ptr)
+		free(ptr);
+	printf("Error\n");
+	free_data(data, free_power);
+	exit (1);
 }

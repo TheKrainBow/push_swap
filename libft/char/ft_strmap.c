@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 12:28:28 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 12:34:10 by mdelwaul         ###   ########.fr       */
+/*   Created: 2021/04/04 12:36:21 by mdelwaul          #+#    #+#             */
+/*   Updated: 2021/04/04 12:36:43 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-int		ft_isalnum(int c)
+int		ft_strmap(char *str, int (*f)(int))
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	while (str && *(str))
+		if (!(f(*(str++))))
+			return (0);
+	return (1);
 }
