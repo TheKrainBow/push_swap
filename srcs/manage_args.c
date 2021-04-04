@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:57:08 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:04:05 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:52:13 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		load_stack_arg(t_data *data, char **args)
 	}
 }
 
-void	generate_random_stack(t_data *data)
+void	generate_random_stack(t_data *data, int push_swap)
 {
 	int		i;
 	int		n;
@@ -72,12 +72,12 @@ void	generate_random_stack(t_data *data)
 	while (++i < n)
 		data->a->stack[i] = i;
 	i = -1;
-	if (data->flags->visualize)
+	if (data->flags->visualize && push_swap)
 		printf(BWHITE"   Generating random A.\n");
 	while (++i < n + random)
 	{
 		ft_swap(&data->a->stack[rand() % n], &data->a->stack[rand() % n]);
-		if (data->flags->visualize)
+		if (data->flags->visualize && push_swap)
 		{
 			print_stack(data->a, 0);
 			if ((int)(((double)(i + 1) / (double)(n + random)) * 100) >= 100)
@@ -87,6 +87,9 @@ void	generate_random_stack(t_data *data)
 			usleep(1000 * 100);
 		}
 	}
-	printf("\033[A\033[K");
-	sleep(1);
+	if (push_swap)
+	{
+		printf("\033[A\033[K"WHITE);
+		sleep(1);
+	}
 }

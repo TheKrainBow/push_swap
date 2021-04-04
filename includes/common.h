@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:49:41 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:08:18 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:47:27 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 t_data		*init_data(void);
 char		**create_args(char **av, int ac);
 void		load_stack_arg(t_data *data, char **args);
-void		generate_random_stack(t_data *data);
+void		generate_random_stack(t_data *data, int push_swap);
 
 void		sa(t_data *data);
 void		sb(t_data *data);
@@ -42,6 +42,7 @@ t_stack		*copy(t_stack *a);
 void		free_data(t_data *data, int free_power);
 void		ft_exit(t_data *data, int free_power, void *ptr);
 
+int			checker(t_stack *a, int correct_size, int print);
 
 void	ft_swap(int *a, int *b);
 #endif

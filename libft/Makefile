@@ -25,6 +25,7 @@ SRCS_LST	=	lst/ft_lst_to_tab.c						\
 
 SRCS_MATH	=	math/ft_atoi.c							\
 				math/ft_itoa.c							\
+				math/ft_swap.c							\
 				math/ft_max.c							\
 				math/ft_min.c
 

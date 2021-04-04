@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 04:57:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 12:37:07 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:36:23 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void					ft_print_tab(char **strs);
 void					ft_print_tab_fd(char **strs, int fd);
 char					**ft_strs_to_tab(int n, ...);
 int						ft_max(int a, int b);
+void					ft_swap(int *a, int *b);
 int						ft_min(int a, int b);
 char					*ft_strndup(char *str, int start, int len);
 void					ft_lstprint(t_list *lst);

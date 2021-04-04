@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:00:49 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:04:30 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:21:42 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,27 @@ void	sort_stack(t_stack *a)
 int		top_stack(t_stack *a)
 {
 	return (a->stack[a->size - 1]);
+}
+
+int		checker(t_stack *a, int correct_size, int print)
+{
+	int			i;
+
+	if (a->size == correct_size)
+	{
+		i = -1;
+		while (++i < a->size - 1)
+			if (a->stack[i] < a->stack[i + 1])
+			{
+				if (print)
+					printf("KO\n");
+				return (0);
+			}
+		if (print)
+			printf("OK\n");
+		return (1);
+	}
+	if (print)
+		printf("KO\n");
+	return (0);
 }
