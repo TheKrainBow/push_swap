@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:57:08 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:52:13 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:28:44 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	generate_random_stack(t_data *data, int push_swap)
 	if (!data->flags->args[1]
 	|| !data->flags->args[2] || data->flags->args[3])
 		ft_exit(data, 1, NULL);
+	srand(ft_atoi(data->flags->args[2]));
 	n = ft_atoi(data->flags->args[1]);
 	random = rand() % n;
 	if (n <= 0)
@@ -87,7 +88,8 @@ void	generate_random_stack(t_data *data, int push_swap)
 			usleep(1000 * 100);
 		}
 	}
-	if (push_swap)
+	if (data->flags->visualize && push_swap)
+	//if (push_swap)
 	{
 		printf("\033[A\033[K"WHITE);
 		sleep(1);

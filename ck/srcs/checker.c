@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 16:50:10 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:49:00 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,8 @@ int	node(char *line)
 	return (-1);
 }
 
-void	swap(int *a, int *b)
+int			empty_line(int empty, char **line)
 {
-	int	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-int			empty_line(int empty)
-{
-	int			i;
-
 	if (empty == 0)
 		printf(BCYAN"\033[AChecker>:"BWHITE" Hey.. Don't let me empty :-(\n"WHITE);
 	if (empty == 1)
@@ -65,9 +54,7 @@ int			empty_line(int empty)
 	if (empty == 5)
 	{
 		printf(BCYAN"\033[AChecker>:"BWHITE" I wanted to be kind, but here you are..\n"BRED);
-		i = -1;
-		while (i < 500000000)
-			i++;
+		sleep(2);
 		printf("\n\n"BRED);
 		printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
 		printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
@@ -83,7 +70,10 @@ int			empty_line(int empty)
 		printf("	KOKOK       KOKOKO          KOKOK      KOKOK           \n");
 		printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
 		printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
+		printf("\n");
+		printf("(Shouldv been KO since first empty line)");
 		printf(WHITE"\n");
+		free(*line);
 		return (1);
 	}
 	return (0);
@@ -164,7 +154,7 @@ int main(int ac, char **av)
 			exit (1);
 		}
 		else if (ret != 0)
-			if (empty_line(empty++))
+			if (empty_line(empty++, &line))
 				break ;
 		free(line);
 	}

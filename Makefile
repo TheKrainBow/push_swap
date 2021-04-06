@@ -1,62 +1,55 @@
-SRCS_UTILS		=	srcs/push_swap.c						\
-					srcs/operations.c						\
+NAME = make
+LIBFT = libft/libft.a
+PUSH_SWAP = Push_swap
+CHECKER = Checker
 
-INCLUDES		=	-Iincludes								\
-					-Ilibft/includes
+SRCS			=	srcs/operations.c					\
+					srcs/manage_args.c					\
+					srcs/manage_data.c					\
+					srcs/manage_stack.c					\
+					srcs/print_stack.c					\
+					srcs/exit.c
 
-SRCS			=	$(SRCS_UTILS) $(SRCS_LEX) $(SRCS_BUILTINS)
 OBJS			=	$(SRCS:.c=.o)
 
+INCLUDES		=	-Iincludes							\
+					-Ilibft/includes
+
 CC				=	clang
-RM				=	@rm -f
-
-LIBFT			=	libft/libft.a
-
-PUSH_SWAP		=	ps/push_swap
-
-CHECKER			=	ck/checker
-
-LD_FLAGS		=	-g -fsanitize=address -Llibft -lft
+LD_FLAGS		=	-g -fsanitize=address libft/libft.a
 FLAGS			=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096 -g
 
-all:				$(LIBFT) $(PUSH_SWAP) $(CHECKER)
+.c.o:
+					@$(CC) -c $< -o $(<:.c=.o) $(FLAGS)
 
-$(CHECKER):
-					@make -s -C ck -f Makefile
-					@mv $(CHECKER) ./
-
-$(PUSH_SWAP):
-					@make -s -C ps -f Makefile
-					@mv $(PUSH_SWAP) ./
-
-$(LIBFT):
+$(NAME):			$(OBJS)
 					@make -s -C libft -f Makefile
-					@echo -n "\033[3A\033[25C\033[1;32m✓\033[26D\033[3B\033[0m"
+					@ar rc $(LIBFT) $(OBJS)
+					@ranlib $(LIBFT)
+					@make -s -C ps -f Makefile
+					@make -s -C ck -f Makefile
 
-
+all:				$(NAME)
 
 bonus:				re
 
 clear_screen:
 					@clear
 
-clean:
+clean:				
 					@make -s -C libft -f Makefile clean
+					@$(RM) $(OBJS)
 					@make -s -C ps -f Makefile clean
 					@make -s -C ck -f Makefile clean
-					$(RM) $(OBJS)
 
 fclean:				
-					@clear
 					@make -s -C libft -f Makefile fclean
+					@$(RM) $(OBJS)
 					@make -s -C ps -f Makefile fclean
 					@make -s -C ck -f Makefile fclean
-					$(RM) push_swap
-					$(RM) checker
 
-re:					
-					@make -s -C libft -f Makefile re
-					@make -s -C ps -f Makefile re
-					@make -s -C ck -f Makefile re
+mc:					all clean
+
+re:					fclean all
 
 .PHONY:				all clean fclean re
