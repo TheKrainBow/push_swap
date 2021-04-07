@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/07 03:10:31 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:56:03 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,61 @@ int		find_best_chunk_size(t_data *data, t_stack *temp)
 	return (i_min);
 }
 
-void	push_swap(t_data *data, int print)
+void	sort_three(t_data *data)
+{
+	int		a;
+	int		b;
+	int		c;
+
+	a = data->a->stack[2];
+	b = data->a->stack[1];
+	c = data->a->stack[0];
+	if (a > b && b > c)
+	{
+		sa(data);
+		rra(data);
+	}
+	if (a < b && b > c && c > a)
+	{
+		rra(data);
+		sa(data);
+	}
+	if (a < b && b > c && c < a)
+		rra(data);
+	if (a > b && b < c && a < c)
+		sa(data);
+	if (a > b && b < c && a > c)
+		ra(data);
+}
+
+void	push_swap_three(t_data *data, int print)
+{
+	if (print)
+		data->print = 1;
+	sort_three(data);
+	free_data(data, 2);
+}
+
+void	push_swap_five(t_data *data, int print)
+{
+	data->b = malloc(sizeof(t_stack));
+	data->b->stack = malloc(sizeof(int) * data->a->size);
+	data->b->size = 0;
+	if (print)
+		data->print = 1;
+	pb(data);
+	pb(data);
+	sort_three(data);
+	while (data->b->size)
+	{
+		pa(data);
+	}
+	print_stack(data->a, 1);
+	free_stack(data->b);
+	free_data(data, 2);
+}
+
+void	push_swap_all(t_data *data, int print)
 {
 	t_stack			*temp;
 	int				i_min;
@@ -69,6 +123,16 @@ void	push_swap(t_data *data, int print)
 			BCYAN"Total Operations: ["BWHITE"%d"BCYAN"]\n"BWHITE, data->n_ope);
 	}
 	free_data(data, 3);
+}
+
+void	push_swap(t_data *data, int print)
+{
+	if (data->a->size == 3)
+		push_swap_three(data, print);
+	else if (data->a->size == 5)
+		push_swap_all(data, print);
+	else
+		push_swap_all(data, print);
 }
 
 int		main(int ac, char **av)
