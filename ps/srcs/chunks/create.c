@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_chunks.c                                    :+:      :+:    :+:   */
+/*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:11:34 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:11:58 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 01:43:37 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_chunk		*chunk_stack(t_data *data, t_stack *a, int n, int print)
 	i = -1;
 	while (++i < data->n_chunk)
 	{
-		dest[i].min = a->stack[a->size - 1 -(i * n)];
+		dest[i].min = a->stack[a->size - 1 - (i * n)];
 		dest[i].max = a->stack[a->size - 1 - ((i * n) + n - 1)];
 	}
 	dest[0].min = a->stack[a->size - 1];

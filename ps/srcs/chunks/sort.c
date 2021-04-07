@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_chunk.c                                       :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:09:33 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:13:09 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 01:59:07 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,9 @@ void		sort_chunk(t_data *data, int n)
 			clear_move(data);
 		}
 	}
-	i = 0;
-	while (data->b->stack[i] != data->b->max)
-		i++;
-	if (i != data->b->size - 1)
-	{
-		data->mb[0]->move = rrb;
-		data->mb[0]->n = i + 1;
-	}
-	else
-		data->mb[0]->n = 0;
-	data->ma[0]->n = 0;
+	highest_b(data);
 	generate_moves(data);
 	while (data->b->size)
 		pa(data);
-	free(data->b->stack);
-	free(data->b);
+	free_stack(data->b);
 }

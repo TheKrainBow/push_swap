@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_stacks.c                                     :+:      :+:    :+:   */
+/*   print_stack.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:59:45 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:00:28 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:22:05 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ int			biggest_num(t_stack *a)
 	return (best_size);
 }
 
+void		print_arrow(int size, int mult)
+{
+	int		i;
+
+	i = -1;
+	while (++i < (size) * (mult + 2) - 1)
+		printf("-");
+	printf(">\n");
+}
+
 void		print_stacks(t_data *data, int reset)
 {
 	int		size;
@@ -52,29 +62,20 @@ void		print_stacks(t_data *data, int reset)
 	size = ft_max(data->a->size, data->b->size);
 	mult = ft_max(biggest_num(data->a), biggest_num(data->b));
 	printf(BRED);
-	i = -1;
-	while (++i < (size) * (mult + 2) - 1)
-		printf("-");
-	printf(">\n");
-	printf(BRED);
+	print_arrow(size, mult);
 	i = -1;
 	while (++i < data->a->size)
 		printf(BRED"["BWHITE"%0*d"BRED"]", mult, data->a->stack[i]);
 	printf("\n");
-	printf(BGREEN);
 	i = -1;
 	while (++i < data->b->size)
 		printf(BGREEN"["BWHITE"%0*d"BGREEN"]", mult, data->b->stack[i]);
 	printf("\n");
-	i = -1;
-	while (++i < (size) * (mult + 2) - 1)
-		printf("-");
-	printf(">\n");
+	print_arrow(size, mult);
 	i = -1;
 	while (++i <= 4 && reset)
-		printf("\033[1A\033[K");
-	printf(BWHITE);
-	usleep(1000*100);
+		printf("\033[1A\033[K"BWHITE);
+	usleep(1000 * 100);
 }
 
 void		print_stack(t_stack *a, int arrow)

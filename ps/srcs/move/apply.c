@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:18:14 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:18:36 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 01:54:33 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
+int			exec_both(t_data *data, t_move *ma, t_move *mb, int move)
 {
 	int		i;
 
@@ -35,19 +35,30 @@ int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
 		mb->n--;
 		i++;
 	}
-	while (ma->n > 0)
+	return (i);
+}
+
+int			exec_one(t_data *data, t_move *mv, int size, int move)
+{
+	int		i;
+
+	i = 0;
+	while (mv->n > 0)
 	{
-		if (move && data->a->size > 1)
-			ma->move(data);
-		ma->n--;
+		if (move && size > 1)
+			mv->move(data);
+		mv->n--;
 		i++;
 	}
-	while (mb->n > 0)
-	{
-		if (move && data->b->size > 1)
-			mb->move(data);
-		mb->n--;
-		i++;
-	}
+	return (i);
+}
+
+int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
+{
+	int		i;
+
+	i = exec_both(data, ma, mb, move);
+	i += exec_one(data, ma, data->a->size, move);
+	i += exec_one(data, mb, data->b->size, move);
 	return (i);
 }

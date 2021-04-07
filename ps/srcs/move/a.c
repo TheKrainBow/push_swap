@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:16:13 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:16:36 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 01:34:28 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	best_move_for_a(t_data *data, int n)
 	data->first = -1;
 	i = data->a->size;
 	while (--i >= 0 && data->first == -1)
-		if (data->a->stack[i] >= data->chunked_a[n].min && data->a->stack[i] <= data->chunked_a[n].max)
+		if (data->a->stack[i] >= data->chunked_a[n].min &&
+		data->a->stack[i] <= data->chunked_a[n].max)
 			data->first = i;
 	if (data->first == -1)
 		return ;

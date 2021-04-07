@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 16:12:35 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:11:46 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		revers_moves(t_data *data);
 int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move);
 int			ind(int i, char a);
 void		generate_moves(t_data *data);
+void		highest_b(t_data *data);
 void		best_move_for_b(t_data *data);
 void		best_move_for_a(t_data *data, int n);
 void		clear_move(t_data *data);

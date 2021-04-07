@@ -6,35 +6,26 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/04 16:55:51 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:10:53 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			ind(int i, char a)
+int		ind(int i, char a)
 {
 	if (a == 'a')
 		return (i >= 2);
 	return (i % 2);
 }
 
-void		push_swap(t_data *data, int print)
+int		find_best_chunk_size(t_data *data, t_stack *temp)
 {
 	int				i;
 	int				min;
 	int				i_min;
-	t_stack			*temp;
 
-	data->sorted_a = copy(data->a);
-	temp = copy(data->a);
-	sort_stack(data->sorted_a);
-	data->print = 0;
-	min = 0;
-	i_min = 1;
 	i = 0;
-	free(data->a->stack);
-	free(data->a);
 	while ((++i < data->a->size / 5 && data->a->size > 5)
 	|| (i < data->a->size && data->a->size <= 5))
 	{
@@ -48,11 +39,24 @@ void		push_swap(t_data *data, int print)
 			i_min = i;
 		}
 		free(data->chunked_a);
-		free(data->a->stack);
-		free(data->a);
+		free_stack(data->a);
 	}
 	data->a = copy(temp);
 	data->n_ope = 0;
+	return (i_min);
+}
+
+void	push_swap(t_data *data, int print)
+{
+	t_stack			*temp;
+	int				i_min;
+
+	temp = copy(data->a);
+	data->sorted_a = copy(data->a);
+	free_stack(data->a);
+	sort_stack(data->sorted_a);
+	i_min = find_best_chunk_size(data, temp);
+	free_stack(temp);
 	data->chunked_a = chunk_stack(data, data->sorted_a, i_min, 0);
 	if (print)
 		data->print = 1;
@@ -61,10 +65,9 @@ void		push_swap(t_data *data, int print)
 	{
 		printf("A sorted.\n");
 		print_stacks(data, 0);
-		printf(BCYAN"Total Operations: ["BWHITE"%d"BCYAN"]\n"BWHITE, data->n_ope);
+		printf(
+			BCYAN"Total Operations: ["BWHITE"%d"BCYAN"]\n"BWHITE, data->n_ope);
 	}
-	free(temp->stack);
-	free(temp);
 	free_data(data, 3);
 }
 
@@ -107,7 +110,8 @@ int		main(int ac, char **av)
 	if (data->flags->random)
 		generate_random_stack(data, 1);
 	else
-		load_stack_arg(data, data->flags->args + (data->flags->visualize || data->flags->color || data->flags->random));
+		load_stack_arg(data, data->flags->args + (data->flags->visualize
+		|| data->flags->color || data->flags->random));
 	if (!checker(data->a, data->a->size, 0))
 		push_swap(data, 1);
 	else if (data->flags->visualize)

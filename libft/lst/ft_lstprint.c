@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstprint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 13:51:14 by magostin          #+#    #+#             */
-/*   Updated: 2021/02/15 17:45:51 by magostin         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:40:24 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void		ft_lstprint_fd(t_list *lst, int fd)
 	i = 0;
 	while (lst)
 	{
-		/*ft_putchar_fd('|', fd);
+		ft_putchar_fd('|', fd);
 		ft_putstr_fd((char *)lst->content, fd);
-		ft_putstr_fd("|\n", fd);*/
-		dprintf(fd, " %-4d\033[1;31m[\033[0m%s\033[1;31m]\033[0m\n", i, (char *)lst->content);
+		ft_putstr_fd("|\n", fd);
 		lst = lst->next;
 		i++;
 	}

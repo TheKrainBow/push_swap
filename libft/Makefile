@@ -14,7 +14,6 @@ SRCS_LST	=	lst/ft_lst_to_tab.c						\
 				lst/ft_lstadd_back.c					\
 				lst/ft_lstadd_front.c					\
 				lst/ft_lstclear.c						\
-				lst/ft_lstcpy.c							\
 				lst/ft_lstdelone.c						\
 				lst/ft_lstiter.c						\
 				lst/ft_lstlast.c						\

@@ -6,11 +6,17 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:54:24 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 15:56:16 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:24:09 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+void		free_stack(t_stack *a)
+{
+	free(a->stack);
+	free(a);
+}
 
 t_data		*init_data(void)
 {
@@ -25,6 +31,7 @@ t_data		*init_data(void)
 	data->mb[1] = malloc(sizeof(t_move));
 	data->ma[0]->n = 0;
 	data->mb[0]->n = 0;
+	data->print = 0;
 	data->flags = malloc(sizeof(t_flags));
 	data->flags->random = 0;
 	data->flags->visualize = 0;
@@ -49,8 +56,7 @@ void		free_data(t_data *data, int free_power)
 	if (free_power >= 3)
 	{
 		free(data->chunked_a);
-		free(data->sorted_a->stack);
-		free(data->sorted_a);
+		free_stack(data->sorted_a);
 	}
 	free(data);
 }

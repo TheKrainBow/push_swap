@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:17:32 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:20:22 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 01:39:17 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void		generate_moves(t_data *data)
 	{
 		n[0] = data->ma[ind(i, 'a')]->n;
 		n[1] = data->mb[ind(i, 'b')]->n;
-		moves = exec_moves(data, data->ma[ind(i, 'a')], data->mb[ind(i, 'b')], 0);
+		moves = exec_moves(data, data->ma[ind(i, 'a')],
+		data->mb[ind(i, 'b')], 0);
 		if (moves < min || i == 0)
 		{
 			i_temp = i;

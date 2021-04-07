@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:49:41 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:47:27 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:30:47 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int			top_stack(t_stack *a);
 void		sort_stack(t_stack *a);
 t_stack		*copy(t_stack *a);
 
+void		free_stack(t_stack *a);
 void		free_data(t_data *data, int free_power);
 void		ft_exit(t_data *data, int free_power, void *ptr);
 
 int			checker(t_stack *a, int correct_size, int print);
 
-void	ft_swap(int *a, int *b);
+void		ft_swap(int *a, int *b);
+
 #endif

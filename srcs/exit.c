@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:06:26 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/04 16:06:42 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:12:18 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void		ft_exit(t_data *data, int free_power, void *ptr)
 		free(ptr);
 	printf("Error\n");
 	free_data(data, free_power);
-	exit (1);
+	exit(1);
 }

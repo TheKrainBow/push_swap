@@ -3,12 +3,15 @@ LIBFT = libft/libft.a
 PUSH_SWAP = Push_swap
 CHECKER = Checker
 
-SRCS			=	srcs/operations.c					\
-					srcs/manage_args.c					\
+SRCS			=	srcs/manage_args.c					\
 					srcs/manage_data.c					\
 					srcs/manage_stack.c					\
 					srcs/print_stack.c					\
-					srcs/exit.c
+					srcs/exit.c							\
+					srcs/operations/push.c				\
+					srcs/operations/rotate.c			\
+					srcs/operations/reversed_rotate.c	\
+					srcs/operations/swap.c				\
 
 OBJS			=	$(SRCS:.c=.o)
 
