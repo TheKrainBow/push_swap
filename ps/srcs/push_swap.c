@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/07 02:10:53 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 03:10:31 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,48 +71,20 @@ void	push_swap(t_data *data, int print)
 	free_data(data, 3);
 }
 
-int		parsing_ps(t_data *data)
-{
-	int		i;
-	char	*temp;
-	char	**args;
-
-	args = data->flags->args;
-	temp = NULL;
-	i = -1;
-	if (args[0][0] == '-')
-	{
-		temp = ft_strtrim(args[0], "-crv");
-		if (temp && !(temp[0]))
-		{
-			if (ft_strchr(args[0], 'c'))
-				data->flags->color = 1;
-			if (ft_strchr(args[0], 'r'))
-				data->flags->random = 1;
-			if (ft_strchr(args[0], 'v'))
-				data->flags->visualize = 1;
-		}
-		else if (!ft_strmap(temp, ft_isdigit))
-			ft_exit(data, 1, temp);
-	}
-	free(temp);
-	return (0);
-}
-
 int		main(int ac, char **av)
 {
 	t_data			*data;
 
 	data = init_data();
 	data->flags->args = create_args(av, ac);
-	if (ac == 1 || parsing_ps(data))
+	if (ac == 1 || parsing(data))
 		ft_exit(data, 1, NULL);
 	if (data->flags->random)
 		generate_random_stack(data, 1);
 	else
 		load_stack_arg(data, data->flags->args + (data->flags->visualize
 		|| data->flags->color || data->flags->random));
-	if (!checker(data->a, data->a->size, 0))
+	if (!checker(data->a, data->a->size, 0, data->flags->color))
 		push_swap(data, 1);
 	else if (data->flags->visualize)
 	{

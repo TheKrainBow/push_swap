@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 02:22:53 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:23:55 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:56:22 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void		rra(t_data *d)
 	while (++i < d->a->size - 1)
 		d->a->stack[i] = d->a->stack[i + 1];
 	d->a->stack[i] = temp;
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BRED);
 	if (d->print)
 		printf("rra\n");
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope++;
 }
 
@@ -42,19 +40,17 @@ void		rrb(t_data *d)
 	while (++i < d->b->size - 1)
 		d->b->stack[i] = d->b->stack[i + 1];
 	d->b->stack[i] = temp;
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BGREEN);
 	if (d->print)
 		printf("rrb\n");
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope++;
 }
 
 void		rrr(t_data *d)
 {
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BBLUE);
 	if (d->print)
 	{
@@ -70,7 +66,5 @@ void		rrr(t_data *d)
 		rrb(d);
 	}
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope--;
 }

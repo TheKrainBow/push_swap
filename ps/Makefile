@@ -9,8 +9,7 @@ SRCS			=	srcs/push_swap.c						\
 					srcs/move/generate.c					\
 					srcs/move/reset.c						\
 
-INCLUDES		=	-Iincludes								\
-					-I../includes							\
+INCLUDES		=	-I../includes							\
 					-I../libft/includes
 
 OBJS			=	$(SRCS:.c=.o)

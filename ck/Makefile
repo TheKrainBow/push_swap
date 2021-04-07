@@ -2,8 +2,7 @@ NAME			=	Checker
 
 SRCS			=	srcs/checker.c							\
 
-INCLUDES		=	-Iincludes								\
-					-I../includes							\
+INCLUDES		=	-I../includes							\
 					-I../libft/includes
 
 OBJS			=	$(SRCS:.c=.o)

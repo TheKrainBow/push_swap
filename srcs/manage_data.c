@@ -6,11 +6,39 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:54:24 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:24:09 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 03:09:53 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+int		parsing(t_data *data)
+{
+	int		i;
+	char	*temp;
+	char	**args;
+
+	args = data->flags->args;
+	temp = NULL;
+	i = -1;
+	if (args[0][0] == '-')
+	{
+		temp = ft_strtrim(args[0], "-crv");
+		if (temp && !(temp[0]))
+		{
+			if (ft_strchr(args[0], 'c'))
+				data->flags->color = 1;
+			if (ft_strchr(args[0], 'r'))
+				data->flags->random = 1;
+			if (ft_strchr(args[0], 'v'))
+				data->flags->visualize = 1;
+		}
+		else if (!ft_strmap(temp, ft_isdigit))
+			ft_exit(data, 1, temp);
+	}
+	free(temp);
+	return (0);
+}
 
 void		free_stack(t_stack *a)
 {

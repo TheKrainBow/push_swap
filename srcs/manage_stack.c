@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:00:49 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:22:41 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 03:02:47 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ int		top_stack(t_stack *a)
 	return (a->stack[a->size - 1]);
 }
 
-int		checker(t_stack *a, int correct_size, int print)
+int		checker(t_stack *a, int correct_size, int print, int color)
 {
 	int			i;
 
+	if (print && color)
+		printf(BRED);
 	if (a->size == correct_size)
 	{
 		i = -1;
@@ -66,6 +68,8 @@ int		checker(t_stack *a, int correct_size, int print)
 					printf("KO\n");
 				return (0);
 			}
+		if (print && color)
+			printf(BGREEN);
 		if (print)
 			printf("OK\n");
 		return (1);

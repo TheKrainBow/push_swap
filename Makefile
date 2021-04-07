@@ -55,4 +55,10 @@ mc:					all clean
 
 re:					fclean all
 
+norme:
+					~/.norminette/norminette.rb libft
+					~/.norminette/norminette.rb ps/srcs
+					~/.norminette/norminette.rb ck/srcs
+					~/.norminette/norminette.rb includes
+
 .PHONY:				all clean fclean re

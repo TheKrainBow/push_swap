@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:49:41 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:30:47 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 03:10:22 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "struct.h"
 
 t_data		*init_data(void);
+int			parsing(t_data *data);
 char		**create_args(char **av, int ac);
 void		load_stack_arg(t_data *data, char **args);
 void		generate_random_stack(t_data *data, int push_swap);
@@ -43,7 +44,7 @@ void		free_stack(t_stack *a);
 void		free_data(t_data *data, int free_power);
 void		ft_exit(t_data *data, int free_power, void *ptr);
 
-int			checker(t_stack *a, int correct_size, int print);
+int			checker(t_stack *a, int correct_size, int print, int color);
 
 void		ft_swap(int *a, int *b);
 

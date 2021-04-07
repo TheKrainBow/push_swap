@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 02:23:30 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:23:37 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 02:56:29 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ void		sa(t_data *d)
 	temp = d->a->stack[d->a->size - 1];
 	d->a->stack[d->a->size - 1] = d->a->stack[d->a->size - 2];
 	d->a->stack[d->a->size - 2] = temp;
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BRED);
 	if (d->print)
 		printf("sa\n");
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope++;
 }
 
@@ -42,19 +40,17 @@ void		sb(t_data *d)
 	temp = d->b->stack[d->b->size - 1];
 	d->b->stack[d->b->size - 1] = d->b->stack[d->b->size - 2];
 	d->b->stack[d->b->size - 2] = temp;
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BGREEN);
 	if (d->print)
 		printf("sb\n");
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope++;
 }
 
 void		ss(t_data *d)
 {
-	if (d->flags->color)
+	if (d->print && d->flags->color)
 		printf(BBLUE);
 	if (d->print)
 	{
@@ -72,7 +68,5 @@ void		ss(t_data *d)
 		sb(d);
 	}
 	print_stacks(d, 1);
-	if (d->flags->color)
-		printf(BWHITE);
 	d->n_ope--;
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/07 02:39:51 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/04/07 03:15:19 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
 # ifdef BONUS
 #  include <sys/types.h>
@@ -22,6 +22,7 @@
 # include "common.h"
 # include "color.h"
 # include "../libft/includes/libft.h"
+# define PROMPT "\033[1;36m\033[AChecker>: \033[1;37m"
 
 void		sort_stack(t_stack *a);
 t_chunk		*chunk_stack(t_data *data, t_stack *a, int n, int print);
