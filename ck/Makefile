@@ -1,4 +1,4 @@
-NAME			=	Checker
+NAME			=	checker
 
 SRCS			=	srcs/checker.c							\
 

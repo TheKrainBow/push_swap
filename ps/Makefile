@@ -1,4 +1,4 @@
-NAME			=	Push_swap
+NAME			=	push_swap
 
 SRCS			=	srcs/push_swap.c						\
 					srcs/chunks/create.c					\
@@ -36,16 +36,16 @@ clear_screen:
 					@clear
 
 clean:
-					@echo "\033[0;33mCleaning \033[1;31m$(NAME)\033[0;33m's objects\033[0m"
+					@echo "\033[0;33mCleaning \033[1;31mPush_swap\033[0;33m's objects\033[0m"
 					$(RM) $(OBJS)
 
 fclean:
-					@echo "\033[0;33mRemoving \033[1;31m$(NAME)\033[0;33m.\033[0m"
+					@echo "\033[0;33mRemoving \033[1;31mPush_swap\033[0;33m.\033[0m"
 					$(RM) $(OBJS)
 					$(RM) ../$(NAME)
 
 start_message:
-					@echo "\033[0;33mMaking \033[1;31m$(NAME)\033[0;33m\t\033[1;30m[\033[1;31mX\033[1;30m]\033[0m"
+					@echo "\033[0;33mMaking \033[1;31mPush_swap\033[0;33m\t\033[1;30m[\033[1;31mX\033[1;30m]\033[0m"
 
 re:					fclean start_message $(OBJS)
 					@$(CC) $(OBJS) $(FLAGS) -o $(NAME) $(LD_FLAGS)
