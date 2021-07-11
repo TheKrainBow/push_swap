@@ -1,6 +1,7 @@
 NAME			=	push_swap
 
 SRCS			=	srcs/push_swap.c						\
+					srcs/other.c							\
 					srcs/chunks/create.c					\
 					srcs/chunks/sort.c						\
 					srcs/move/a.c							\

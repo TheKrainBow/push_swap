@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:16:57 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 01:38:41 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:20:48 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	best_move_for_b(t_data *data)
 		highest_b(data);
 }
 
-int		check_b_insert(t_data *data, int index)
+int	check_b_insert(t_data *data, int index)
 {
 	int		prev;
 
@@ -58,7 +58,7 @@ int		check_b_insert(t_data *data, int index)
 	if (index == 0)
 		prev = data->b->size - 1;
 	if (data->b->stack[index] > data->ma[0]->value
-	&& data->b->stack[prev] < data->ma[0]->value)
+		&& data->b->stack[prev] < data->ma[0]->value)
 		return (1);
 	return (0);
 }

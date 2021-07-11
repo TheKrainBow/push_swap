@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:59:45 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:22:05 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:27:40 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int			biggest_num(t_stack *a)
+int	biggest_num(t_stack *a)
 {
 	int			i;
 	long int	temp;
@@ -41,7 +41,7 @@ int			biggest_num(t_stack *a)
 	return (best_size);
 }
 
-void		print_arrow(int size, int mult)
+void	print_arrow(int size, int mult)
 {
 	int		i;
 
@@ -51,7 +51,7 @@ void		print_arrow(int size, int mult)
 	printf(">\n");
 }
 
-void		print_stacks(t_data *data, int reset)
+void	print_stacks(t_data *data, int reset)
 {
 	int		size;
 	int		mult;
@@ -78,7 +78,7 @@ void		print_stacks(t_data *data, int reset)
 	usleep(1000 * 100);
 }
 
-void		print_stack(t_stack *a, int arrow)
+void	print_stack(t_stack *a, int arrow)
 {
 	int		i;
 	int		mult;

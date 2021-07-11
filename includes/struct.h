@@ -6,14 +6,14 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:42:49 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:30:40 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:29:56 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct		s_stack
+typedef struct s_stack
 {
 	int				*stack;
 	int				max;
@@ -21,13 +21,13 @@ typedef struct		s_stack
 	int				size;
 }					t_stack;
 
-typedef struct		s_chunk
+typedef struct s_chunk
 {
 	int				min;
 	int				max;
 }					t_chunk;
 
-typedef struct		s_flags
+typedef struct s_flags
 {
 	int				random;
 	int				color;
@@ -35,7 +35,7 @@ typedef struct		s_flags
 	char			**args;
 }					t_flags;
 
-typedef struct		s_data
+typedef struct s_data
 {
 	t_stack			*a;
 	t_stack			*b;
@@ -50,7 +50,7 @@ typedef struct		s_data
 	t_flags			*flags;
 }					t_data;
 
-typedef struct		s_move
+typedef struct s_move
 {
 	int				n;
 	int				value;

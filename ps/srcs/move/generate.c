@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:17:32 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 01:39:17 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:21:13 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		revers_moves(t_data *data)
+void	revers_moves(t_data *data)
 {
 	if (data->ma[0]->move == &ra)
 		data->ma[1]->move = &rra;
@@ -26,7 +26,7 @@ void		revers_moves(t_data *data)
 	data->mb[1]->n = data->b->size - data->mb[0]->n;
 }
 
-void		generate_moves(t_data *data)
+void	generate_moves(t_data *data)
 {
 	int		moves;
 	int		n[2];
@@ -43,7 +43,7 @@ void		generate_moves(t_data *data)
 		n[0] = data->ma[ind(i, 'a')]->n;
 		n[1] = data->mb[ind(i, 'b')]->n;
 		moves = exec_moves(data, data->ma[ind(i, 'a')],
-		data->mb[ind(i, 'b')], 0);
+				data->mb[ind(i, 'b')], 0);
 		if (moves < min || i == 0)
 		{
 			i_temp = i;

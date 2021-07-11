@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:09:33 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 01:59:07 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:22:15 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		sort_chunk(t_data *data, int n)
+void	sort_chunk(t_data *data, int n)
 {
 	int			i;
 

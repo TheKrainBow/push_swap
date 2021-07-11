@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 02:22:50 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:56:18 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:27:13 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void		pa(t_data *d)
+void	pa(t_data *d)
 {
 	if (d->b->size == 0)
 		return ;
@@ -36,7 +36,7 @@ void		pa(t_data *d)
 	d->n_ope++;
 }
 
-void		pb(t_data *d)
+void	pb(t_data *d)
 {
 	if (d->a->size == 0)
 		return ;

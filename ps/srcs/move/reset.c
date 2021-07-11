@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:19:09 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 01:34:57 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:20:33 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		clear_move(t_data *data)
+void	clear_move(t_data *data)
 {
 	data->ma[1]->move = NULL;
 	data->ma[1]->n = 0;

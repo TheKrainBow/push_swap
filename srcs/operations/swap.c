@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 02:23:30 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:56:29 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:27:01 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void		sa(t_data *d)
+void	sa(t_data *d)
 {
 	int		temp;
 
@@ -31,7 +31,7 @@ void		sa(t_data *d)
 	d->n_ope++;
 }
 
-void		sb(t_data *d)
+void	sb(t_data *d)
 {
 	int		temp;
 
@@ -48,7 +48,7 @@ void		sb(t_data *d)
 	d->n_ope++;
 }
 
-void		ss(t_data *d)
+void	ss(t_data *d)
 {
 	if (d->print && d->flags->color)
 		printf(BBLUE);

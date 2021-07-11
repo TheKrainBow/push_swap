@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:57:08 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 02:30:14 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:29:22 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	load_stack_arg(t_data *data, char **args)
 		j = -1;
 		while (++j < i)
 			if (data->a->stack[data->a->size - j - 1]
-			== data->a->stack[data->a->size - i - 1])
+				== data->a->stack[data->a->size - i - 1])
 				ft_exit(data, 2, NULL);
 	}
 }
 
 void	create_stack_rndm(t_data *data, int n)
 {
-	int i;
+	int	i;
 
 	data->a->stack = malloc(sizeof(int) * n);
 	data->a->size = n;
@@ -71,7 +71,7 @@ void	print_random_stack(t_data *data, int i, int max)
 	if ((int)(((double)(i + 1) / (double)(max)) * 100) >= 100)
 		printf(BGREEN);
 	printf("%*.0d[%d%%]\n"BWHITE, 10, 0,
-	(int)(((double)(i + 1) / (double)(max)) * 100));
+		(int)(((double)(i + 1) / (double)(max)) * 100));
 	printf("\033[2A\033[K");
 	usleep(1000 * 100);
 }
@@ -82,7 +82,7 @@ void	generate_random_stack(t_data *data, int push_swap)
 	int		n;
 
 	if (!data->flags->args[1]
-	|| !data->flags->args[2] || data->flags->args[3])
+		|| !data->flags->args[2] || data->flags->args[3])
 		ft_exit(data, 1, NULL);
 	srand(ft_atoi(data->flags->args[2]));
 	n = ft_atoi(data->flags->args[1]);

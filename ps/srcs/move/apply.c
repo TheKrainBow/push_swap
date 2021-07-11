@@ -6,19 +6,20 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:18:14 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 01:54:33 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:21:49 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			exec_both(t_data *data, t_move *ma, t_move *mb, int move)
+int	exec_both(t_data *data, t_move *ma, t_move *mb, int move)
 {
 	int		i;
 
 	i = 0;
 	while (ma->move == &ra && mb->move == &rb
-	&& (ma->n > 0) && (mb->n > 0) && (data->a->size > 1 && data->b->size > 1))
+		&& (ma->n > 0) && (mb->n > 0)
+		&& (data->a->size > 1 && data->b->size > 1))
 	{
 		if (move)
 			rr(data);
@@ -27,7 +28,8 @@ int			exec_both(t_data *data, t_move *ma, t_move *mb, int move)
 		i++;
 	}
 	while (ma->move == &rra && mb->move == &rrb
-	&& (ma->n > 0) && (mb->n > 0) && (data->a->size > 1 && data->b->size > 1))
+		&& (ma->n > 0)
+		&& (mb->n > 0) && (data->a->size > 1 && data->b->size > 1))
 	{
 		if (move)
 			rrr(data);
@@ -38,7 +40,7 @@ int			exec_both(t_data *data, t_move *ma, t_move *mb, int move)
 	return (i);
 }
 
-int			exec_one(t_data *data, t_move *mv, int size, int move)
+int	exec_one(t_data *data, t_move *mv, int size, int move)
 {
 	int		i;
 
@@ -53,7 +55,7 @@ int			exec_one(t_data *data, t_move *mv, int size, int move)
 	return (i);
 }
 
-int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
+int	exec_moves(t_data *data, t_move *ma, t_move *mb, int move)
 {
 	int		i;
 

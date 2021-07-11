@@ -6,7 +6,7 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:00:49 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/19 04:59:35 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:28:25 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,22 @@ void	sort_stack(t_stack *a)
 		swaped = 0;
 		i = -1;
 		while (++i < a->size - 1)
+		{
 			if (a->stack[i] < a->stack[i + 1])
 			{
 				ft_swap(&a->stack[i], &a->stack[i + 1]);
 				swaped = 1;
 			}
+		}
 	}
 }
 
-int		top_stack(t_stack *a)
+int	top_stack(t_stack *a)
 {
 	return (a->stack[a->size - 1]);
 }
 
-int		checker(t_stack *a, int correct_size, int print, int color)
+int	checker(t_stack *a, int correct_size, int print, int color)
 {
 	int			i;
 
@@ -62,12 +64,14 @@ int		checker(t_stack *a, int correct_size, int print, int color)
 	{
 		i = -1;
 		while (++i < a->size - 1)
+		{
 			if (a->stack[i] < a->stack[i + 1])
 			{
 				if (print)
 					printf("KO\n");
 				return (0);
 			}
+		}
 		if (print && color)
 			printf(BGREEN);
 		if (print)

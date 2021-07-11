@@ -6,13 +6,13 @@
 /*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:54:24 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 03:09:53 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/07/12 01:28:40 by mdelwaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int		parsing(t_data *data)
+int	parsing(t_data *data)
 {
 	int		i;
 	char	*temp;
@@ -40,13 +40,13 @@ int		parsing(t_data *data)
 	return (0);
 }
 
-void		free_stack(t_stack *a)
+void	free_stack(t_stack *a)
 {
 	free(a->stack);
 	free(a);
 }
 
-t_data		*init_data(void)
+t_data	*init_data(void)
 {
 	t_data	*data;
 
@@ -67,7 +67,7 @@ t_data		*init_data(void)
 	return (data);
 }
 
-void		free_data(t_data *data, int free_power)
+void	free_data(t_data *data, int free_power)
 {
 	if (free_power >= 2)
 		free(data->a->stack);
