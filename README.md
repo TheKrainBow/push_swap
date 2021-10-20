@@ -51,12 +51,14 @@ It will output "Error." followed by a newline in any wrong usage.
 Checker should work with -r and -c.
 
 Exemples of use:
-```./push_swap -rvc 30 5
+```
+./push_swap -rvc 30 5
 ./push_swap -c 5 4 1 0 3 2 6
 ./push_swap -r 500 5 | ./checker -r 500 5
 ./push_swap
 ./push_swap NOPE
-./push_swap 0 0 1 1 2 2 3 3```
+./push_swap 0 0 1 1 2 2 3 3
+```
 
 
 [^1] Operations:
