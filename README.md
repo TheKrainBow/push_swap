@@ -35,7 +35,6 @@ In this project, you must sort a series of number, using simple operations on tw
 ### Bonus
 You can add the flags r c and v in the execution, to have differents behaviors:
 - with r (for random), instead of giving a list of number as argument, you must give two numbers.
-```./push_swap -r <size_of_stack_to_generate> <seed_for_random>```
 For exemple, ```./push_swap -r 10 5``` will generate a random array of 10 numbers (from 0 to 9), and sort it using my push_swap algorithme
 - with c (for color), all output will be colored in:
     - red if the oeration affects stack A.
