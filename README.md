@@ -3,7 +3,7 @@
 ## DO NOT USE THIS CODE AS A REFERENCE
 
 ### Goal of the project:
-In this project, you must sort a series of number, using simple operations[^operation] on two stacks.
+In this project, you must sort a series of number, using simple operations on two stacks.
 
 ### Parts implemented:
 - ✅ push_swap
@@ -35,8 +35,8 @@ In this project, you must sort a series of number, using simple operations[^oper
 ### Bonus
 You can add the flags r c and v in the execution, to have differents behaviors:
 - with r (for random), instead of giving a list of number as argument, you must give two numbers.
-    ```./push_swap -r <size_of_stack_to_generate> <seed_for_random>```
-    For exemple, ```./push_swap -r 10 5``` will generate a random array of 10 numbers (from 0 to 9), and sort it using my push_swap algorithme
+```./push_swap -r <size_of_stack_to_generate> <seed_for_random>```
+For exemple, ```./push_swap -r 10 5``` will generate a random array of 10 numbers (from 0 to 9), and sort it using my push_swap algorithme
 - with c (for color), all output will be colored in:
     - red if the oeration affects stack A.
     - green if the operation affects stack B.
@@ -61,22 +61,14 @@ Exemples of use:
 ```
 
 ### Operations:
-- sa : swap a - swap the first 2 elements at the top of stack a. Do nothing if there
-       is only one or no elements).
-- sb : swap b - swap the first 2 elements at the top of stack b. Do nothing if there
-       is only one or no elements).
+- sa : swap a - swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements).
+- sb : swap b - swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements).
 - ss : sa and sb at the same time.
-- pa : push a - take the first element at the top of b and put it at the top of a. Do
-       nothing if b is empty.
-- pb : push b - take the first element at the top of a and put it at the top of b. Do
-       nothing if a is empty.
-- ra : rotate a - shift up all elements of stack a by 1. The first element becomes
-       the last one.
-- rb : rotate b - shift up all elements of stack b by 1. The first element becomes
-       the last one.
+- pa : push a - take the first element at the top of b and put it at the top of a. Do nothing if b is empty.
+- pb : push b - take the first element at the top of a and put it at the top of b. Do nothing if a is empty.
+- ra : rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
+- rb : rotate b - shift up all elements of stack b by 1. The first element becomes the last one.
 - rr : ra and rb at the same time.
-- rra : reverse rotate a - shift down all elements of stack a by 1. The last element
-        becomes the first one.
-- rrb : reverse rotate b - shift down all elements of stack b by 1. The last element
-        becomes the first one.
+- rra : reverse rotate a - shift down all elements of stack a by 1. The last element becomes the first one.
+- rrb : reverse rotate b - shift down all elements of stack b by 1. The last element becomes the first one.
 - rrr : rra and rrb at the same time.
