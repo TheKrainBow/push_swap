@@ -62,9 +62,9 @@ Exemples of use:
 
 
 [^operation]: Operations:
-      -sa : swap a - swap the first 2 elements at the top of stack a. Do nothing if there
-  is only one or no elements).
-  sb : swap b - swap the first 2 elements at the top of stack b. Do nothing if there
+  - sa : swap a - swap the first 2 elements at the top of stack a. Do nothing if there
+    is only one or no elements).
+  - sb : swap b - swap the first 2 elements at the top of stack b. Do nothing if there
   is only one or no elements).
 -   ss : sa and sb at the same time.
 -   pa : push a - take the first element at the top of b and put it at the top of a. Do
