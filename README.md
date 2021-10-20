@@ -45,9 +45,9 @@ You can add the flags r c and v in the execution, to have differents behaviors:
 
 The second bonus is to do a checker executable, that check if the output actually sort the stack.  
 If it's sorted, it output OK, if it's not, it output KO.  
-It will output "Error." followed by a newline in any wrong usage.
-```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker $ARG``` should output OK
-```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker 98 65 42 1``` should output KO
+It will output "Error." followed by a newline in any wrong usage.  
+```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker $ARG``` should output OK  
+```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker 98 65 42 1``` should output KO  
 Checker should work with -r and -c.
 
 Exemples of use:
