@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/07/12 01:35:20 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/10/05 19:22:00 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	read_input(t_data *data)
 	char			*line;
 	int				ret;
 	int				empty;
-	static	void	(*redirect[11])(t_data *) =
+	static void		(*redirect[11])(t_data *) =
 	{sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr};
 
 	ret = 1;
@@ -101,7 +101,7 @@ int	read_input(t_data *data)
 			redirect[red_r](data);
 		else if (ret && line[0])
 		{
-			printf("Error [%s] invalid.\n", line);
+			printf("Error\n");
 			exit(1);
 		}
 		else if (ret != 0 && empty_line(empty++, &line))
@@ -118,8 +118,9 @@ int	main(int ac, char **av)
 
 	data = init_data();
 	data->flags->args = create_args(av, ac);
-	if (ac == 1 || parsing(data))
-		ft_exit(data, 1, NULL);
+	if (ac == 1)
+		return (1);
+	parsing(data);
 	if (data->flags->random)
 		generate_random_stack(data, 0);
 	else
@@ -131,7 +132,7 @@ int	main(int ac, char **av)
 	data->b->stack = malloc(sizeof(int) * (data->a->size));
 	data->b->size = 0;
 	if (read_input(data)
-		&& !checker(data->a, data->a->size, 1, data->flags->color)
+		&& !checker(data->a, save, 1, data->flags->color)
 		&& data->flags->visualize)
 		print_stack(data->a, 1);
 	free_data(data, 2);

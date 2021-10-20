@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 02:23:30 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:27:01 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/10/05 18:17:02 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	sa(t_data *d)
 {
 	int		temp;
 
-	(void)d->b;
-	(void)d->b->size;
 	if (d->a->size <= 1)
 		return ;
 	temp = d->a->stack[d->a->size - 1];

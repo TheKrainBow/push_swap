@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/04/07 03:15:19 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:28:12 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ void		best_move_for_a(t_data *data, int n);
 void		clear_move(t_data *data);
 void		sort_chunk(t_data *data, int n);
 void		push_swap(t_data *data, int print);
-int			parsing(t_data *data);
 
 #endif

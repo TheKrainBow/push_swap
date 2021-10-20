@@ -85,19 +85,19 @@ FLAGS		=	-Wall -Werror -Wextra -Iincludes
 .c.o:
 				$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
 
-$(NAME):		start_message $(OBJS)
+$(NAME):		enter_name $(OBJS)
+				@if [ "$?" = "enter_name" ]; then echo -n "\033[3A\033[25C\033[1;32m✓\033[5C\033[0;33mAlready done\033[43D\033[3B\033[0m"; else echo -n "\033[3A\033[25C\033[1;32m✓\033[26D\033[3B\033[0m";fi
 				@ar rc $(NAME) $(OBJS)
 				@ranlib $(NAME)
-				@echo "\033[1A\033[25C\033[1;32m✓\033[0m"
 
 all:			$(NAME)
+
+enter_name:
+				@echo -n
 
 clean:
 				@echo "\033[0;33mCleaning \033[1;31m$(NAME)\033[0;33m's objects\033[0m"
 				$(RM) $(OBJS)
-
-start_message:
-				@echo "\033[0;33mMaking \033[1;31m$(NAME)\033[0;33m\t\t\033[1;30m[\033[1;31mX\033[1;30m]\033[0m"
 
 fclean:			
 				$(RM) $(NAME)

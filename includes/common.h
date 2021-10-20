@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:49:41 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/04/07 03:10:22 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/10/05 19:25:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "struct.h"
 
 t_data		*init_data(void);
-int			parsing(t_data *data);
+void		parsing(t_data *data);
 char		**create_args(char **av, int ac);
 void		load_stack_arg(t_data *data, char **args);
 void		generate_random_stack(t_data *data, int push_swap);

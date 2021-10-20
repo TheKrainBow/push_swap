@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 01:31:02 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/08/09 07:57:38 by magostin         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:51:13 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	find_best_chunk_size(t_data *data, t_stack *temp)
 	i = 0;
 	i_min = 1;
 	while ((++i < data->a->size / 5 && data->a->size > 5)
-		|| (i < data->a->size && data->a->size <= 5))
+		|| (i < data->a->size && data->a->size <= 50))
 	{
 		data->a = copy(temp);
 		data->n_ope = 0;
@@ -61,15 +61,15 @@ void	sort_three(t_data *data)
 		sa(data);
 		rra(data);
 	}
-	if (a < b && b > c && c > a)
+	else if (a < b && b > c && c > a)
 	{
 		rra(data);
 		sa(data);
 	}
-	if (a < b && b > c && c < a)
+	else if (a < b && b > c && c < a)
 		rra(data);
-	if (a > b && b < c && a < c)
+	else if (a > b && b < c && a < c)
 		sa(data);
-	if (a > b && b < c && a > c)
+	else if (a > b && b < c && a > c)
 		ra(data);
 }
