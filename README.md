@@ -43,8 +43,8 @@ You can add the flags r c and v in the execution, to have differents behaviors:
     - blue if the operation affects both.
 - with v (for visualize), output is fully changed. It will no more print operations, but show the progress directly on the stacks.
 
-The second bonus is to do a checker executable, that check if the output actually sort the stack. <br \n>
-If it's sorted, it output OK, if it's not, it output KO.
+The second bonus is to do a checker executable, that check if the output actually sort the stack.  
+If it's sorted, it output OK, if it's not, it output KO.  
 It will output "Error." followed by a newline in any wrong usage.
 ```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker $ARG``` should output OK
 ```$ARG="2 4 1 3 6 5"; ./push_swap $ARG | ./checker 98 65 42 1``` should output KO
