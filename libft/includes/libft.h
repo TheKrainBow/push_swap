@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 04:57:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/06/25 14:36:15 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/03 01:18:19 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int						ft_lstsize(t_list *lst);
 **				MATH
 */
 
-int						ft_atoi(const char *str);
+long					ft_atoi(const char *str);
 char					*ft_itoa(int n);
 int						ft_max(int a, int b);
 int						ft_min(int a, int b);

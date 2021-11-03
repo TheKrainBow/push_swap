@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 19:24:02 by magostin          #+#    #+#             */
-/*   Updated: 2021/10/05 19:24:35 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/03 01:19:22 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	ft_try(t_data *data, char *arg)
 {
+	long	nbr;
+
+	nbr = ft_atoi(arg);
 	if (!ft_strmap(arg + 1, ft_isdigit))
 		ft_exit(data, 1, NULL);
-	if (ft_atoi(arg) < 0 && arg[0] != '-')
+	if (arg[0] != '-' && ft_isdigit(arg[0]) == 0)
 		ft_exit(data, 1, NULL);
-	if (ft_atoi(arg) > 0 && arg[0] == '-')
+	if (ft_atoi(arg) > 2147483647)
+		ft_exit(data, 1, NULL);
+	if (ft_atoi(arg) < -2147483648)
 		ft_exit(data, 1, NULL);
 }
 

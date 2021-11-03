@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/10/05 19:22:00 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/03 01:22:41 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,11 @@ int	final_line(char **line)
 	return (1);
 }
 
-int	empty_line(int empty, char **line)
+void	ft_error(void *ptr)
 {
-	if (empty == 0)
-		printf(PROMPT"Hey.. Don't let me empty :-(\n"WHITE);
-	if (empty == 1)
-		printf(PROMPT"Ouch.. You did it again :-/\n"WHITE);
-	if (empty == 2)
-		printf(PROMPT"Oof.. It really hurt you know? >.<\n"WHITE);
-	if (empty == 3)
-		printf(PROMPT"Is it a provocation? :-|\n"WHITE);
-	if (empty == 4)
-		printf(PROMPT"Ok. This is not fun anymore.\n"WHITE);
-	if (empty == 5)
-		return (final_line(line));
-	return (0);
+	free(ptr);
+	printf("Error\n");
+	exit(1);
 }
 
 int	read_input(t_data *data)
@@ -100,12 +90,9 @@ int	read_input(t_data *data)
 		if (red_r != -1)
 			redirect[red_r](data);
 		else if (ret && line[0])
-		{
-			printf("Error\n");
-			exit(1);
-		}
-		else if (ret != 0 && empty_line(empty++, &line))
-			return (0);
+			ft_error(line);
+		else if (ret != 0)
+			ft_error(line);
 		free(line);
 	}
 	return (1);
@@ -116,10 +103,10 @@ int	main(int ac, char **av)
 	t_data			*data;
 	int				save;
 
+	if (ac == 1)
+		return (0);
 	data = init_data();
 	data->flags->args = create_args(av, ac);
-	if (ac == 1)
-		return (1);
 	parsing(data);
 	if (data->flags->random)
 		generate_random_stack(data, 0);
@@ -137,5 +124,5 @@ int	main(int ac, char **av)
 		print_stack(data->a, 1);
 	free_data(data, 2);
 	free_stack(data->b);
-	return (1);
+	return (0);
 }

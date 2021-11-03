@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/10/05 18:05:31 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/03 00:41:33 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void		sort_chunk(t_data *data, int n);
 void		push_swap(t_data *data, int print);
 void		sort_three(t_data *data);
 int			find_best_chunk_size(t_data *data, t_stack *temp);
+void		five_setup_a(t_data *data);
 
 #endif

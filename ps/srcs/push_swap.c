@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/10/05 19:28:27 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/03 01:03:38 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	push_swap_five(t_data *data, int print)
 	data->b->size = 0;
 	if (print)
 		data->print = 1;
-	pb(data);
-	pb(data);
+	while (data->a->size > 3)
+		pb(data);
 	sort_three(data);
 	while (data->b->size)
 	{
-		best_move_for_b(data);
+		five_setup_a(data);
 		generate_moves(data);
 		pa(data);
 	}
@@ -82,7 +82,7 @@ void	push_swap(t_data *data, int print)
 {
 	if (data->a->size <= 3)
 		push_swap_three(data, print);
-	else if (data->a->size == 5)
+	else if (data->a->size <= 5)
 		push_swap_five(data, print);
 	else
 		push_swap_all(data, print);

@@ -9,6 +9,7 @@ SRCS			=	srcs/push_swap.c						\
 					srcs/move/apply.c						\
 					srcs/move/generate.c					\
 					srcs/move/reset.c						\
+					srcs/move/five.c
 
 INCLUDES		=	-I../includes							\
 					-I../libft/includes

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:00:43 by magostin          #+#    #+#             */
-/*   Updated: 2021/06/25 13:50:30 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/03 01:18:01 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	neg;
-	int	res;
+	long	i;
+	long	neg;
+	long	res;
 
 	i = 0;
 	res = 0;

@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 01:31:02 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/10/20 15:51:13 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/03 00:37:45 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	find_best_chunk_size(t_data *data, t_stack *temp)
 	int				min;
 	int				i_min;
 
-	i = 0;
+	i = data->a->size / 10 - 1;
 	i_min = 1;
-	while ((++i < data->a->size / 5 && data->a->size > 5)
+	while ((++i < data->a->size / 5 && data->a->size > 50)
 		|| (i < data->a->size && data->a->size <= 50))
 	{
 		data->a = copy(temp);
