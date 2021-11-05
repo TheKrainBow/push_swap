@@ -6,17 +6,19 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 01:31:02 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/03 00:37:45 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/05 02:45:23 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ind(int i, char a)
+int	init_i(int size)
 {
-	if (a == 'a')
-		return (i >= 2);
-	return (i % 2);
+	if (size < 100)
+		return (0);
+	else if (size < 500)
+		return (14);
+	return (31);
 }
 
 int	find_best_chunk_size(t_data *data, t_stack *temp)
@@ -25,16 +27,16 @@ int	find_best_chunk_size(t_data *data, t_stack *temp)
 	int				min;
 	int				i_min;
 
-	i = data->a->size / 10 - 1;
-	i_min = 1;
-	while ((++i < data->a->size / 5 && data->a->size > 50)
-		|| (i < data->a->size && data->a->size <= 50))
+	i = init_i(temp->size);
+	i_min = i;
+	min = 1;
+	while (++i < temp->size && i < 60 && (i - i_min <= 7))
 	{
 		data->a = copy(temp);
 		data->n_ope = 0;
 		data->chunked_a = chunk_stack(data, data->sorted_a, i, 0);
 		sort_chunk(data, data->n_chunk);
-		if (i == 1 || data->n_ope < min)
+		if (min == 1 || data->n_ope < min)
 		{
 			min = data->n_ope;
 			i_min = i;

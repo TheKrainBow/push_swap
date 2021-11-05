@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:53:07 by magostin          #+#    #+#             */
-/*   Updated: 2021/11/03 00:41:33 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/05 03:08:29 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 
 void		sort_stack(t_stack *a);
 t_chunk		*chunk_stack(t_data *data, t_stack *a, int n, int print);
-int			check_b_insert(t_data *data, int index);
+int			check_b_insert(t_data *data, int index, int value);
 void		revers_moves(t_data *data);
 int			exec_moves(t_data *data, t_move *ma, t_move *mb, int move);
 int			ind(int i, char a);
 void		generate_moves(t_data *data);
-void		highest_b(t_data *data);
-void		best_move_for_b(t_data *data);
+void		highest_b(t_data *data, t_move *mb);
+void		best_move_for_b(t_data *data, t_move *mb, int value);
 void		best_move_for_a(t_data *data, int n);
 void		clear_move(t_data *data);
 void		sort_chunk(t_data *data, int n);
@@ -39,5 +39,7 @@ void		push_swap(t_data *data, int print);
 void		sort_three(t_data *data);
 int			find_best_chunk_size(t_data *data, t_stack *temp);
 void		five_setup_a(t_data *data);
+void		print_arrow(int size, int mult);
+int			biggest_num(t_stack *a);
 
 #endif

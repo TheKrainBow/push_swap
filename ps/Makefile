@@ -6,7 +6,6 @@ SRCS			=	srcs/push_swap.c						\
 					srcs/chunks/sort.c						\
 					srcs/move/a.c							\
 					srcs/move/b.c							\
-					srcs/move/apply.c						\
 					srcs/move/generate.c					\
 					srcs/move/reset.c						\
 					srcs/move/five.c
@@ -19,7 +18,7 @@ OBJS			=	$(SRCS:.c=.o)
 CC				=	clang
 RM				=	@rm -f
 
-LD_FLAGS		=	../libft/libft.a -g -fsanitize=address 
+LD_FLAGS		=	../libft/libft.a -g
 FLAGS			=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096 -g
 
 .c.o:

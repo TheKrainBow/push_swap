@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:19:09 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:20:33 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:46:12 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 void	clear_move(t_data *data)
 {
-	data->ma[1]->move = NULL;
-	data->ma[1]->n = 0;
-	data->mb[1]->move = NULL;
-	data->mb[1]->n = 0;
-	data->ma[0]->move = NULL;
-	data->ma[0]->n = 0;
-	data->ma[0]->value = 0;
-	data->mb[0]->move = NULL;
-	data->mb[0]->n = 0;
-	data->mb[0]->value = 0;
+	data->ma_f->n_right = 0;
+	data->mb->n_right = 0;
+	data->ma_f->n_left = 0;
+	data->ma_f->value = 0;
+	data->mb->n_left = 0;
+	data->mb->value = 0;
 }

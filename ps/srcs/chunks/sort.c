@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:09:33 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:22:15 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/05 02:58:56 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ void	sort_chunk(t_data *data, int n)
 			best_move_for_a(data, i);
 			if (data->first == -1)
 				break ;
-			best_move_for_b(data);
+			best_move_for_b(data, data->mb_f, data->ma_f->value);
+			best_move_for_b(data, data->mb_l, data->ma_l->value);
 			generate_moves(data);
 			pb(data);
 			clear_move(data);
 		}
 	}
-	highest_b(data);
+	highest_b(data, data->mb_f);
+	highest_b(data, data->mb_l);
 	generate_moves(data);
 	while (data->b->size)
 		pa(data);

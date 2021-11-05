@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_stack.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:59:45 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:27:40 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/05 03:04:02 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ void	print_stack(t_stack *a, int arrow)
 
 	mult = biggest_num(a);
 	i = -1;
-	printf(BWHITE);
-	while (++i < (a->size) * (mult + 2) - 1 && arrow)
-		printf("-");
+	printf(BRED);
 	if (arrow)
-		printf(">\n");
+		print_arrow(a->size, mult);
 	printf(BRED);
 	i = -1;
 	while (++i < a->size)

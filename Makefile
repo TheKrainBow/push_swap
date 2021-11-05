@@ -20,7 +20,7 @@ INCLUDES		=	-Iincludes							\
 					-Ilibft/includes
 
 CC				=	clang
-LD_FLAGS		=	-g -fsanitize=address libft/libft.a
+LD_FLAGS		=	-g libft/libft.a
 FLAGS			=	-Wall -Werror -Wextra $(INCLUDES) -D BUFFER_SIZE=4096 -g
 
 .c.o:
@@ -40,6 +40,8 @@ bonus:				start_message $(OBJS)
 					@ranlib $(LIBFT)
 					@make -s -C ps -f Makefile
 					@make -s -C ck -f Makefile
+
+checker:			bonus
 
 clear_screen:
 					@clear

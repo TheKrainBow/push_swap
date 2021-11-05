@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 15:42:49 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:29:56 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/05 02:22:25 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_stack
 
 typedef struct s_chunk
 {
-	int				min;
 	int				max;
 }					t_chunk;
 
@@ -39,11 +38,16 @@ typedef struct s_data
 {
 	t_stack			*a;
 	t_stack			*b;
-	struct s_move	*ma[2];
-	struct s_move	*mb[2];
+	struct s_move	*ma;
+	struct s_move	*mb;
+	struct s_move	*ma_f;
+	struct s_move	*ma_l;
+	struct s_move	*mb_f;
+	struct s_move	*mb_l;
 	t_stack			*sorted_a;
 	t_chunk			*chunked_a;
 	int				first;
+	int				last;
 	int				print;
 	int				n_ope;
 	int				n_chunk;
@@ -52,9 +56,9 @@ typedef struct s_data
 
 typedef struct s_move
 {
-	int				n;
+	int				n_right;
+	int				n_left;
 	int				value;
-	void			(*move)(t_data *);
 }					t_move;
 
 #endif

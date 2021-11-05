@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/11/03 01:03:38 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/05 03:07:11 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ void	push_swap_five(t_data *data, int print)
 	free_data(data, 2);
 }
 
+void	final_print(t_data *data)
+{
+	printf("A sorted.\n");
+	print_stack(data->a, 1);
+	printf("\n");
+	printf(BGREEN);
+	print_arrow(data->a->size, biggest_num(data->a));
+	printf(
+		BCYAN"Total Operations: ["BWHITE"%d"BCYAN"]\n"BWHITE, data->n_ope);
+}
+
 void	push_swap_all(t_data *data, int print)
 {
 	t_stack			*temp;
@@ -70,10 +81,7 @@ void	push_swap_all(t_data *data, int print)
 	sort_chunk(data, data->n_chunk);
 	if (data->flags->visualize)
 	{
-		printf("A sorted.\n");
-		print_stacks(data, 0);
-		printf(
-			BCYAN"Total Operations: ["BWHITE"%d"BCYAN"]\n"BWHITE, data->n_ope);
+		final_print(data);
 	}
 	free_data(data, 3);
 }

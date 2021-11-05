@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 23:56:25 by magostin          #+#    #+#             */
-/*   Updated: 2021/11/03 01:22:41 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/04 22:01:54 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,6 @@ int	node(char *line, int c)
 	return (-1);
 }
 
-int	final_line(char **line)
-{
-	printf(PROMPT"I wanted to be kind, but here you are..\n"BRED);
-	sleep(2);
-	printf("\n\n"BRED);
-	printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
-	printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
-	printf("	KOKOK       KOKOKO          KOKOK      KOKOK       KOKO\n");
-	printf("	KOKOK     KOKOKO            KOKO        KOKO       KOKO\n");
-	printf("	KOKOK   KOKOKO              KOKO        KOKO       KOKO\n");
-	printf("	KOKOK KOKOKO               KOKO          KOKO      KOKO\n");
-	printf("	KOKOKOKOKO                 KOKO          KOKO      KOKO\n");
-	printf("	KOKOKOKOKO                 KOKO          KOKO      KOKO\n");
-	printf("	KOKOK KOKOKO               KOKO          KOKO      KOKO\n");
-	printf("	KOKOK   KOKOKO              KOKO        KOKO       KOKO\n");
-	printf("	KOKOK     KOKOKO            KOKO        KOKO           \n");
-	printf("	KOKOK       KOKOKO          KOKOK      KOKOK           \n");
-	printf("	KOKOK         KOKOKO         KOKOKOKOKOKOKO        KOKO\n");
-	printf("	KOKOK           KOKOKO         KOKOKOKOKO          KOKO\n");
-	printf("\n");
-	printf("(Shouldv been KO since first empty line)");
-	printf(WHITE"\n");
-	free(*line);
-	return (1);
-}
-
 void	ft_error(void *ptr)
 {
 	free(ptr);
@@ -87,13 +61,14 @@ int	read_input(t_data *data)
 	{
 		ret = get_next_line(0, &line);
 		red_r = node(line, data->flags->color);
+		free(line);
 		if (red_r != -1)
 			redirect[red_r](data);
-		else if (ret && line[0])
-			ft_error(line);
-		else if (ret != 0)
-			ft_error(line);
-		free(line);
+		else if (ret)
+		{
+			printf("Error\n");
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -122,7 +97,7 @@ int	main(int ac, char **av)
 		&& !checker(data->a, save, 1, data->flags->color)
 		&& data->flags->visualize)
 		print_stack(data->a, 1);
-	free_data(data, 2);
 	free_stack(data->b);
+	free_data(data, 2);
 	return (0);
 }

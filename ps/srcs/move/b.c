@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdelwaul <mdelwaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 16:16:57 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/07/12 01:20:48 by mdelwaul         ###   ########.fr       */
+/*   Updated: 2021/11/05 02:40:37 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	highest_b(t_data *data)
+void	highest_b(t_data *data, t_move *mb)
 {
 	int		i;
 
@@ -20,15 +20,12 @@ void	highest_b(t_data *data)
 	while (data->b->stack[i] != data->b->max)
 		i++;
 	if (i != data->b->size - 1)
-	{
-		data->mb[0]->move = rrb;
-		data->mb[0]->n = i + 1;
-	}
+		mb->n_right = i + 1;
 	else
-		data->mb[0]->n = 0;
+		mb->n_right = 0;
 }
 
-void	best_move_for_b(t_data *data)
+void	best_move_for_b(t_data *data, t_move *mb, int value)
 {
 	int		i;
 	int		maxed;
@@ -38,27 +35,23 @@ void	best_move_for_b(t_data *data)
 		return ;
 	i = data->b->size;
 	while (--i >= 0)
-		if (check_b_insert(data, i))
+		if (check_b_insert(data, i, value))
 			break ;
 	if (i != -1)
-	{
-		data->mb[0]->move = rrb;
-		data->mb[0]->n = i;
-		return ;
-	}
+		mb->n_right = i;
 	else
-		highest_b(data);
+		highest_b(data, mb);
 }
 
-int	check_b_insert(t_data *data, int index)
+int	check_b_insert(t_data *data, int index, int value)
 {
 	int		prev;
 
 	prev = index - 1;
 	if (index == 0)
 		prev = data->b->size - 1;
-	if (data->b->stack[index] > data->ma[0]->value
-		&& data->b->stack[prev] < data->ma[0]->value)
+	if (data->b->stack[index] > value
+		&& data->b->stack[prev] < value)
 		return (1);
 	return (0);
 }
