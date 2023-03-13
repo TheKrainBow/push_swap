@@ -13,14 +13,6 @@ In this project, you must sort a series of number, using simple operations on tw
   - ✅ visualise option
   - ✅ checker
 
-### Validated by school:
-- ❌ push_swap
-- ❌ Bonus
-  - ❌ random option
-  - ❌ color option
-  - ❌ visualise option
-  - ❌ checker
-  
 ### How to use:
 1. Clone the project
   ```git clone https://github.com/TheKrainBow/push_swap```
